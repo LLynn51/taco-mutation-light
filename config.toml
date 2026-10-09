@@ -1,0 +1,61 @@
+[data]
+source = "/home/llynn/raw_datasets/TACO/d593ed0a2becbbc952230bb89be09189bf1056dc/ALL"
+run_dir = "runs/pilot"
+pool_size = 100
+seed = 20261009
+max_solutions = 3
+# Optional JSON map task_id -> execution_contract / representation.
+overrides = ""
+
+# Fixed source-format presets, applied before execution. Remove a table to disable it.
+[data.source_profiles.codewars]
+output = "single_wrapped"
+
+[data.source_profiles.geeksforgeeks]
+entry = "single_solution_method"
+input = "json_lines_to_args"
+output = "json_value"
+
+[api]
+base_url = "https://api.deepseek.com"
+protocol = "chat_completions"
+model = "deepseek-v4-pro"
+reasoning_effort = "high"
+thinking = "enabled"
+stream = true
+json_object = true
+max_tokens = 8192
+connect_timeout = 30
+read_timeout = 180
+total_timeout = 900
+# Explicit local credential file, read only by a paid request. No automatic search.
+credential_file = "/home/llynn/forICML/taco-mutation-light/.env"
+key_name = "DEEPSEEK_API_KEY"
+
+[generation]
+families = ["ROR", "LCR", "AOR", "CLR", "IBR", "SDL"]
+strategy = "per_family" # or per_task_random
+families_per_task = 2 # only for per_task_random
+opportunities = 1
+failure_retries = 1
+prompt = "prompts/mutation.md"
+
+[sampling]
+target = 60
+per_family = 10
+acceptable = 45
+minimum = 30
+
+[execution]
+workers = 6
+image = "python:3.11.9-slim"
+docker = "/usr/bin/docker"
+socket = "unix:///var/run/docker.sock"
+wall_seconds = 3
+startup_seconds = 30
+memory_mb = 512
+pids = 16
+output_bytes = 1048576
+cpus = 1
+repeat_witness = true
+all_official_tests = false

@@ -1,0 +1,94 @@
+{
+  "scope": "two official cases; not whole task verification",
+  "cases": [
+    {
+      "task_id": "https://www.codewars.com/kata/529eef7a9194e0cbc1000255",
+      "case": {
+        "answer_source": "original_official",
+        "case_id": "7bf25398dceaf047",
+        "conversion": {
+          "output": "single_wrapped"
+        },
+        "expected": true,
+        "input": [
+          "foefet",
+          "toffee"
+        ],
+        "raw_expected": [
+          true
+        ],
+        "raw_input": [
+          "foefet",
+          "toffee"
+        ],
+        "source": "official",
+        "source_indices": [
+          0
+        ]
+      },
+      "entry": {
+        "mode": "function",
+        "fn_name": "is_anagram",
+        "target": "function",
+        "parameter_order": [
+          0,
+          1
+        ]
+      },
+      "observation": {
+        "status": "ok",
+        "output": true,
+        "program_stdout": "",
+        "program_stderr": "",
+        "exception_class": null,
+        "origin": "real_container",
+        "container_id": "ae489d90a387cd8e9d499171652c2b876533ec8c406376ba3a531f3a082d009d",
+        "image": "sha256:8fb099199b9f2d70342674bd9dbccd3ed03a258f26bbd1d556822c6dfc60c317",
+        "elapsed_seconds": 0.3471828399997321
+      },
+      "verdict": "pass"
+    },
+    {
+      "task_id": "https://practice.geeksforgeeks.org/problems/smallest-distant-window3132/1",
+      "case": {
+        "answer_source": "original_official",
+        "case_id": "884289e9eadd2c33",
+        "conversion": {
+          "input": "json_lines_to_args",
+          "output": "json_value"
+        },
+        "expected": 3,
+        "input": [
+          "AABBBCBBAC"
+        ],
+        "raw_expected": "3",
+        "raw_input": "\"AABBBCBBAC\"",
+        "source": "official",
+        "source_indices": [
+          0
+        ]
+      },
+      "entry": {
+        "mode": "function",
+        "fn_name": "findSubString",
+        "target": "solution_method",
+        "parameter_order": [
+          0
+        ]
+      },
+      "observation": {
+        "status": "ok",
+        "output": 3,
+        "program_stdout": "",
+        "program_stderr": "",
+        "exception_class": null,
+        "origin": "real_container",
+        "container_id": "2c9a5c955e0c66013c01c33c7f824be62d92bbe635728f482f3c535b7b9209dc",
+        "image": "sha256:8fb099199b9f2d70342674bd9dbccd3ed03a258f26bbd1d556822c6dfc60c317",
+        "elapsed_seconds": 0.33481680099976074
+      },
+      "verdict": "pass"
+    }
+  ],
+  "paid_requests": 0
+}

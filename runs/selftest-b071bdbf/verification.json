@@ -1,0 +1,143 @@
+{
+  "isolation": {
+    "cap_eff": "0000000000000000",
+    "interfaces": [
+      "lo"
+    ],
+    "memory_max": "536870912",
+    "no_new_privs": "1",
+    "pids_max": "16",
+    "python_version": "3.11.9",
+    "root_read_only": true,
+    "source_read_only": true,
+    "tmp_writable": true,
+    "uid": 65534
+  },
+  "paid_requests": 0,
+  "credential_files_read": 0,
+  "adapters": [
+    "stdin.buffer",
+    "SystemExit(0)",
+    "Solution",
+    "parameter_order",
+    "mutated_argument",
+    "linked_list",
+    "binary_tree",
+    "exception",
+    "unsupported_tuple"
+  ],
+  "real_container_peak": 6,
+  "real_container_intervals": [
+    [
+      1791536612.452021,
+      1791536613.9524105
+    ],
+    [
+      1791536612.4611712,
+      1791536613.9612627
+    ],
+    [
+      1791536612.4364905,
+      1791536613.9365706
+    ],
+    [
+      1791536612.4596539,
+      1791536613.959877
+    ],
+    [
+      1791536612.4134746,
+      1791536613.9136982
+    ],
+    [
+      1791536612.431071,
+      1791536613.9311943
+    ]
+  ],
+  "flow-{'CLR': 1}": {
+    "result": {
+      "samples": 6,
+      "families": {
+        "ROR": 1,
+        "LCR": 1,
+        "AOR": 1,
+        "CLR": 1,
+        "IBR": 1,
+        "SDL": 1
+      },
+      "independent_tasks": 1,
+      "outcome": "target_met",
+      "pool": {
+        "count": 1,
+        "path": "/home/llynn/forICML/taco-mutation-light/runs/selftest-b071bdbf/flow-6/tasks.json",
+        "requested": 1
+      },
+      "jobs": {
+        "accepted": 6
+      },
+      "requests": 7,
+      "request_states": {
+        "failed": 1,
+        "complete": 6
+      }
+    },
+    "http_peak": 6,
+    "requests": {
+      "ROR": 1,
+      "LCR": 1,
+      "AOR": 1,
+      "IBR": 1,
+      "SDL": 1,
+      "CLR": 2
+    },
+    "export": {
+      "samples": 6,
+      "blind_page": "/home/llynn/forICML/taco-mutation-light/runs/selftest-b071bdbf/flow-6/exports/20261009-170337-17675e/blind/index.html",
+      "annotations": "/home/llynn/forICML/taco-mutation-light/runs/selftest-b071bdbf/flow-6/exports/20261009-170337-17675e/blind/annotations.csv",
+      "private_materials": "/home/llynn/forICML/taco-mutation-light/runs/selftest-b071bdbf/flow-6/exports/20261009-170337-17675e/materials.jsonl"
+    }
+  },
+  "flow-{'CLR': 2}": {
+    "result": {
+      "samples": 5,
+      "families": {
+        "ROR": 1,
+        "LCR": 1,
+        "AOR": 1,
+        "CLR": 0,
+        "IBR": 1,
+        "SDL": 1
+      },
+      "independent_tasks": 1,
+      "outcome": "usable_pilot",
+      "pool": {
+        "count": 1,
+        "path": "/home/llynn/forICML/taco-mutation-light/runs/selftest-b071bdbf/flow-7/tasks.json",
+        "requested": 1
+      },
+      "jobs": {
+        "failed": 1,
+        "accepted": 5
+      },
+      "requests": 7,
+      "request_states": {
+        "failed": 2,
+        "complete": 5
+      }
+    },
+    "http_peak": 6,
+    "requests": {
+      "ROR": 1,
+      "AOR": 1,
+      "CLR": 2,
+      "LCR": 1,
+      "SDL": 1,
+      "IBR": 1
+    },
+    "export": {
+      "samples": 5,
+      "blind_page": "/home/llynn/forICML/taco-mutation-light/runs/selftest-b071bdbf/flow-7/exports/20261009-170340-478a7d/blind/index.html",
+      "annotations": "/home/llynn/forICML/taco-mutation-light/runs/selftest-b071bdbf/flow-7/exports/20261009-170340-478a7d/blind/annotations.csv",
+      "private_materials": "/home/llynn/forICML/taco-mutation-light/runs/selftest-b071bdbf/flow-7/exports/20261009-170340-478a7d/materials.jsonl"
+    }
+  }
+}

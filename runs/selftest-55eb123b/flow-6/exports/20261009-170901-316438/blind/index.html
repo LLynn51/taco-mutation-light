@@ -1,0 +1,289 @@
+<!doctype html><html lang="zh"><meta charset="utf-8"><title>TACO 试标材料</title>
+<style>body{font:16px/1.6 system-ui;max-width:1000px;margin:32px auto;padding:0 20px;background:#f5f6f8;color:#17202a}article{background:white;padding:24px;margin:24px 0;border-radius:12px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f0f2f5;padding:16px}h3{font-size:15px;color:#40536b}@media print{article{break-before:page}}</style>
+<h1>TACO 官方见证试标材料</h1><p>先阅读证据，在同目录 annotations.csv 中填写。未支持的字段保留指定占位文字；请勿把具体见证推广成未经验证的触发规律。</p>
+<p><strong>这是离线验收用合成示例，不是真实 LLM 试标产出。</strong></p><article><h2>b7676af5-5ad0-40bd-8293-c81639979b98</h2><h3>spec</h3><pre>Return twice the sum of positive entries when n &gt; 1, otherwise zero. Fixture 0.</pre><h3>original_code</h3><pre>def solve(xs, n):
+    total = 0
+    for i in range(n):
+        if xs[i] &gt; 0 and n &gt; 1:
+            total += xs[i] * 2
+    return total
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;solve&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0,
+    1
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  [
+    2
+  ],
+  1
+]</pre><h3>expected</h3><pre>0</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 0,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 4,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: 0,
+    &quot;mutant&quot;: 4,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 1 / 2 个可用官方案例（原始字段 2 个）。标签状态：unknown。</p></article><article><h2>eb323613-455a-4f62-8c27-75ede0a769f7</h2><h3>spec</h3><pre>Return twice the sum of positive entries when n &gt; 1, otherwise zero. Fixture 0.</pre><h3>original_code</h3><pre>def solve(xs, n):
+    total = 0
+    for i in range(n):
+        if xs[i] &gt; 0 and n &gt; 1:
+            total += xs[i] * 2
+    return total
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;solve&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0,
+    1
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  [
+    2
+  ],
+  1
+]</pre><h3>expected</h3><pre>0</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 0,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 4,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: 0,
+    &quot;mutant&quot;: 4,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 1 / 2 个可用官方案例（原始字段 2 个）。标签状态：unknown。</p></article><article><h2>33652b85-e4ca-48f4-8e83-83f86fc0fe84</h2><h3>spec</h3><pre>Return twice the sum of positive entries when n &gt; 1, otherwise zero. Fixture 0.</pre><h3>original_code</h3><pre>def solve(xs, n):
+    total = 0
+    for i in range(n):
+        if xs[i] &gt; 0 and n &gt; 1:
+            total += xs[i] * 2
+    return total
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;solve&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0,
+    1
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  [
+    2
+  ],
+  1
+]</pre><h3>expected</h3><pre>0</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 0,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 1,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: 0,
+    &quot;mutant&quot;: 1,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 1 / 2 个可用官方案例（原始字段 2 个）。标签状态：unknown。</p></article><article><h2>ceb36eac-a6fa-4b30-817c-65b3d90d6ee8</h2><h3>spec</h3><pre>Return twice the sum of positive entries when n &gt; 1, otherwise zero. Fixture 0.</pre><h3>original_code</h3><pre>def solve(xs, n):
+    total = 0
+    for i in range(n):
+        if xs[i] &gt; 0 and n &gt; 1:
+            total += xs[i] * 2
+    return total
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;solve&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0,
+    1
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  [
+    2,
+    4
+  ],
+  2
+]</pre><h3>expected</h3><pre>12</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 12,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 4,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: 12,
+    &quot;mutant&quot;: 4,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 2 / 2 个可用官方案例（原始字段 2 个）。标签状态：unknown。</p></article><article><h2>f3b92e10-7e6f-4a76-96c1-0c13e883740f</h2><h3>spec</h3><pre>Return twice the sum of positive entries when n &gt; 1, otherwise zero. Fixture 0.</pre><h3>original_code</h3><pre>def solve(xs, n):
+    total = 0
+    for i in range(n):
+        if xs[i] &gt; 0 and n &gt; 1:
+            total += xs[i] * 2
+    return total
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;solve&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0,
+    1
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  [
+    2,
+    4
+  ],
+  2
+]</pre><h3>expected</h3><pre>12</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 12,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 0,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: 12,
+    &quot;mutant&quot;: 0,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 2 / 2 个可用官方案例（原始字段 2 个）。标签状态：unknown。</p></article><article><h2>c254845a-e893-4845-ae98-a938a98f74ce</h2><h3>spec</h3><pre>Return twice the sum of positive entries when n &gt; 1, otherwise zero. Fixture 0.</pre><h3>original_code</h3><pre>def solve(xs, n):
+    total = 0
+    for i in range(n):
+        if xs[i] &gt; 0 and n &gt; 1:
+            total += xs[i] * 2
+    return total
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;solve&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0,
+    1
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  [
+    2,
+    4
+  ],
+  2
+]</pre><h3>expected</h3><pre>12</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 12,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 3,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: 12,
+    &quot;mutant&quot;: 3,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 2 / 2 个可用官方案例（原始字段 2 个）。标签状态：unknown。</p></article></html>

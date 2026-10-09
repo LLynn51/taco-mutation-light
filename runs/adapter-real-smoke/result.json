@@ -1,0 +1,48 @@
+{
+  "paid_requests": 0,
+  "scope": "two real TACO official cases only, not complete task qualification",
+  "cases": [
+    {
+      "task_id": "https://www.codewars.com/kata/529eef7a9194e0cbc1000255",
+      "mode": "function",
+      "solution_index": 0,
+      "official_case_index": [
+        0
+      ],
+      "status": "ok",
+      "verdict": "fail",
+      "observation": {
+        "status": "ok",
+        "output": true,
+        "program_stdout": "",
+        "program_stderr": "",
+        "exception_class": null,
+        "origin": "real_container",
+        "container_id": "e549c36e643a3aa0d070b1b148bc9de72237f05ebc87f2ff431217abb9f78187",
+        "image": "sha256:8fb099199b9f2d70342674bd9dbccd3ed03a258f26bbd1d556822c6dfc60c317",
+        "elapsed_seconds": 0.3253744120011106
+      }
+    },
+    {
+      "task_id": "https://practice.geeksforgeeks.org/problems/smallest-distant-window3132/1",
+      "mode": "stdin_stdout",
+      "solution_index": 0,
+      "official_case_index": [
+        0
+      ],
+      "status": "ok",
+      "verdict": "fail",
+      "observation": {
+        "status": "ok",
+        "output": "",
+        "program_stdout": "",
+        "program_stderr": "",
+        "exception_class": null,
+        "origin": "real_container",
+        "container_id": "786c2a409bf8eea7912bc0da066df86ed664b692867261747caea7cbd2263b25",
+        "image": "sha256:8fb099199b9f2d70342674bd9dbccd3ed03a258f26bbd1d556822c6dfc60c317",
+        "elapsed_seconds": 0.31339463199947204
+      }
+    }
+  ]
+}
