@@ -1,0 +1,5700 @@
+<!doctype html><html lang="zh"><meta charset="utf-8"><title>TACO 试标材料</title>
+<style>body{font:16px/1.6 system-ui;max-width:1000px;margin:32px auto;padding:0 20px;background:#f5f6f8;color:#17202a}article{background:white;padding:24px;margin:24px 0;border-radius:12px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f0f2f5;padding:16px}h3{font-size:15px;color:#40536b}@media print{article{break-before:page}}</style>
+<h1>TACO 官方见证试标材料</h1><p>先阅读证据，在同目录 annotations.csv 中填写。未支持的字段保留指定占位文字；请勿把具体见证推广成未经验证的触发规律。</p>
+<article><h2>b6418799-f6e8-46bf-b0c3-c96ad3424c6f</h2><h3>spec</h3><pre>If you visit Aizu Akabeko shrine, you will find a unique paper fortune on which a number with more than one digit is written.
+
+Each digit ranges from 1 to 9 (zero is avoided because it is considered a bad omen in this shrine). Using this string of numeric values, you can predict how many years it will take before your dream comes true. Cut up the string into more than one segment and compare their values. The difference between the largest and smallest value will give you the number of years before your wish will be fulfilled. Therefore, the result varies depending on the way you cut up the string. For example, if you are given a string 11121314 and divide it into segments, say, as 1,11,21,3,14, then the difference between the largest and smallest is 21 - 1 = 20. Another division 11,12,13,14 produces 3 (i.e. 14 - 11) years. Any random division produces a game of luck. However, you can search the minimum number of years using a program.
+
+Given a string of numerical characters, write a program to search the minimum years before your wish will be fulfilled.
+
+
+
+Input
+
+The input is given in the following format.
+
+
+n
+
+
+An integer n is given. Its number of digits is from 2 to 100,000, and each digit ranges from 1 to 9.
+
+Output
+
+Output the minimum number of years before your wish will be fulfilled.
+
+Examples
+
+Input
+
+11121314
+
+
+Output
+
+3
+
+
+Input
+
+123125129
+
+
+Output
+
+6
+
+
+Input
+
+119138
+
+
+Output
+
+5</pre><h3>original_code</h3><pre>def sub(maxs, mins):
+	for i in range(len(maxs)):
+		if maxs[i] != mins[i]:
+			if i == len(maxs) - 1:
+				return int(maxs[i]) - int(mins[i])
+			if i == len(maxs) - 2:
+				return int(maxs[i:i + 2]) - int(mins[i:i + 2])
+			return 10
+	return 0
+
+def checkEqual(S):
+	ans = 8
+	for k in range(1, len(S)):
+		if len(S) % k != 0:
+			continue
+		mins = maxs = S[0:k]
+		for s in range(0, len(S), k):
+			maxs = max(maxs, S[s:s + k])
+			mins = min(mins, S[s:s + k])
+		ans = min(ans, sub(maxs, mins))
+	return ans
+
+def check12(S):
+	maxv = 0
+	minv = 10
+	p = 0
+	while p &lt; len(S):
+		v = int(S[p])
+		if S[p] == &#x27;1&#x27; and p + 1 &lt; len(S):
+			v = 10 + int(S[p + 1])
+			p += 1
+		maxv = max(maxv, v)
+		minv = min(minv, v)
+		p += 1
+	return maxv - minv
+S = input()
+print(min(checkEqual(S), check12(S)))
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>9714431</pre><h3>expected</h3><pre>8
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;8\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;program_exception&quot;,
+  &quot;output&quot;: null,
+  &quot;exception_class&quot;: &quot;IndexError&quot;,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;exception&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;program_exception&quot;,
+    &quot;original&quot;: &quot;8\n&quot;,
+    &quot;mutant&quot;: null,
+    &quot;exception_class&quot;: &quot;IndexError&quot;
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 103 个可用官方案例（原始字段 103 个）。标签状态：unknown。</p></article><article><h2>3528f944-76ea-48ef-9404-6b7046b89803</h2><h3>spec</h3><pre>If you visit Aizu Akabeko shrine, you will find a unique paper fortune on which a number with more than one digit is written.
+
+Each digit ranges from 1 to 9 (zero is avoided because it is considered a bad omen in this shrine). Using this string of numeric values, you can predict how many years it will take before your dream comes true. Cut up the string into more than one segment and compare their values. The difference between the largest and smallest value will give you the number of years before your wish will be fulfilled. Therefore, the result varies depending on the way you cut up the string. For example, if you are given a string 11121314 and divide it into segments, say, as 1,11,21,3,14, then the difference between the largest and smallest is 21 - 1 = 20. Another division 11,12,13,14 produces 3 (i.e. 14 - 11) years. Any random division produces a game of luck. However, you can search the minimum number of years using a program.
+
+Given a string of numerical characters, write a program to search the minimum years before your wish will be fulfilled.
+
+
+
+Input
+
+The input is given in the following format.
+
+
+n
+
+
+An integer n is given. Its number of digits is from 2 to 100,000, and each digit ranges from 1 to 9.
+
+Output
+
+Output the minimum number of years before your wish will be fulfilled.
+
+Examples
+
+Input
+
+11121314
+
+
+Output
+
+3
+
+
+Input
+
+123125129
+
+
+Output
+
+6
+
+
+Input
+
+119138
+
+
+Output
+
+5</pre><h3>original_code</h3><pre>def sub(maxs, mins):
+	for i in range(len(maxs)):
+		if maxs[i] != mins[i]:
+			if i == len(maxs) - 1:
+				return int(maxs[i]) - int(mins[i])
+			if i == len(maxs) - 2:
+				return int(maxs[i:i + 2]) - int(mins[i:i + 2])
+			return 10
+	return 0
+
+def checkEqual(S):
+	ans = 8
+	for k in range(1, len(S)):
+		if len(S) % k != 0:
+			continue
+		mins = maxs = S[0:k]
+		for s in range(0, len(S), k):
+			maxs = max(maxs, S[s:s + k])
+			mins = min(mins, S[s:s + k])
+		ans = min(ans, sub(maxs, mins))
+	return ans
+
+def check12(S):
+	maxv = 0
+	minv = 10
+	p = 0
+	while p &lt; len(S):
+		v = int(S[p])
+		if S[p] == &#x27;1&#x27; and p + 1 &lt; len(S):
+			v = 10 + int(S[p + 1])
+			p += 1
+		maxv = max(maxv, v)
+		minv = min(minv, v)
+		p += 1
+	return maxv - minv
+S = input()
+print(min(checkEqual(S), check12(S)))
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>75547</pre><h3>expected</h3><pre>3
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;3\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;program_exception&quot;,
+  &quot;output&quot;: null,
+  &quot;exception_class&quot;: &quot;IndexError&quot;,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;exception&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;program_exception&quot;,
+    &quot;original&quot;: &quot;3\n&quot;,
+    &quot;mutant&quot;: null,
+    &quot;exception_class&quot;: &quot;IndexError&quot;
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 6 / 103 个可用官方案例（原始字段 103 个）。标签状态：unknown。</p></article><article><h2>aac16ee9-5fa9-4b6a-8313-bb12229a0f78</h2><h3>spec</h3><pre>Casimir has a string $s$ which consists of capital Latin letters &#x27;A&#x27;, &#x27;B&#x27;, and &#x27;C&#x27; only. Each turn he can choose to do one of the two following actions:
+
+he can either erase exactly one letter &#x27;A&#x27; and exactly one letter &#x27;B&#x27; from arbitrary places of the string (these letters don&#x27;t have to be adjacent);
+
+or he can erase exactly one letter &#x27;B&#x27; and exactly one letter &#x27;C&#x27; from arbitrary places in the string (these letters don&#x27;t have to be adjacent).
+
+Therefore, each turn the length of the string is decreased exactly by $2$. All turns are independent so for each turn, Casimir can choose any of two possible actions.
+
+For example, with $s$ $=$ &quot;ABCABC&quot; he can obtain a string $s$ $=$ &quot;ACBC&quot; in one turn (by erasing the first occurrence of &#x27;B&#x27; and the second occurrence of &#x27;A&#x27;). There are also many other options for a turn aside from this particular example.
+
+For a given string $s$ determine whether there is a sequence of actions leading to an empty string. In other words, Casimir&#x27;s goal is to erase all letters from the string. Is there a way to do this?
+
+
+-----Input-----
+
+The first line contains an integer $t$ ($1 \le t \le 1000$) — the number of test cases.
+
+Each test case is described by one string $s$, for which you need to determine if it can be fully erased by some sequence of turns. The string $s$ consists of capital letters &#x27;A&#x27;, &#x27;B&#x27;, &#x27;C&#x27; and has a length from $1$ to $50$ letters, inclusive.
+
+
+-----Output-----
+
+Print $t$ lines, each line containing the answer to the corresponding test case. The answer to a test case should be YES if there is a way to fully erase the corresponding string and NO otherwise.
+
+You may print every letter in any case you want (so, for example, the strings yEs, yes, Yes, and YES will all be recognized as positive answers).
+
+
+-----Examples-----
+
+Input
+6
+ABACAB
+ABBA
+AC
+ABC
+CABCBB
+BCBCBCBCBCBCBCBC
+Output
+NO
+YES
+NO
+NO
+YES
+YES
+
+
+-----Note-----
+
+None</pre><h3>original_code</h3><pre>def solve(s):
+	return s.count(&#x27;B&#x27;) == s.count(&#x27;A&#x27;) + s.count(&#x27;C&#x27;)
+n = int(input())
+for i in range(n):
+	s = input()
+	if solve(s):
+		print(&#x27;YES&#x27;)
+	else:
+		print(&#x27;NO&#x27;)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>6
+ABACAB
+ABBA
+AC
+ABC
+CABCBB
+BCBCBCBCBCBCBCBC
+</pre><h3>expected</h3><pre>NO
+YES
+NO
+NO
+YES
+YES
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;NO\nYES\nNO\nNO\nYES\nYES\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YES\nNO\nYES\nYES\nNO\nNO\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;NO\nYES\nNO\nNO\nYES\nYES\n&quot;,
+    &quot;mutant&quot;: &quot;YES\nNO\nYES\nYES\nNO\nNO\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 201 个可用官方案例（原始字段 202 个）。标签状态：unknown。</p></article><article><h2>fec8558e-e420-401f-aa81-a00a48631775</h2><h3>spec</h3><pre>Casimir has a string $s$ which consists of capital Latin letters &#x27;A&#x27;, &#x27;B&#x27;, and &#x27;C&#x27; only. Each turn he can choose to do one of the two following actions:
+
+he can either erase exactly one letter &#x27;A&#x27; and exactly one letter &#x27;B&#x27; from arbitrary places of the string (these letters don&#x27;t have to be adjacent);
+
+or he can erase exactly one letter &#x27;B&#x27; and exactly one letter &#x27;C&#x27; from arbitrary places in the string (these letters don&#x27;t have to be adjacent).
+
+Therefore, each turn the length of the string is decreased exactly by $2$. All turns are independent so for each turn, Casimir can choose any of two possible actions.
+
+For example, with $s$ $=$ &quot;ABCABC&quot; he can obtain a string $s$ $=$ &quot;ACBC&quot; in one turn (by erasing the first occurrence of &#x27;B&#x27; and the second occurrence of &#x27;A&#x27;). There are also many other options for a turn aside from this particular example.
+
+For a given string $s$ determine whether there is a sequence of actions leading to an empty string. In other words, Casimir&#x27;s goal is to erase all letters from the string. Is there a way to do this?
+
+
+-----Input-----
+
+The first line contains an integer $t$ ($1 \le t \le 1000$) — the number of test cases.
+
+Each test case is described by one string $s$, for which you need to determine if it can be fully erased by some sequence of turns. The string $s$ consists of capital letters &#x27;A&#x27;, &#x27;B&#x27;, &#x27;C&#x27; and has a length from $1$ to $50$ letters, inclusive.
+
+
+-----Output-----
+
+Print $t$ lines, each line containing the answer to the corresponding test case. The answer to a test case should be YES if there is a way to fully erase the corresponding string and NO otherwise.
+
+You may print every letter in any case you want (so, for example, the strings yEs, yes, Yes, and YES will all be recognized as positive answers).
+
+
+-----Examples-----
+
+Input
+6
+ABACAB
+ABBA
+AC
+ABC
+CABCBB
+BCBCBCBCBCBCBCBC
+Output
+NO
+YES
+NO
+NO
+YES
+YES
+
+
+-----Note-----
+
+None</pre><h3>original_code</h3><pre>def solve(s):
+	return s.count(&#x27;B&#x27;) == s.count(&#x27;A&#x27;) + s.count(&#x27;C&#x27;)
+n = int(input())
+for i in range(n):
+	s = input()
+	if solve(s):
+		print(&#x27;YES&#x27;)
+	else:
+		print(&#x27;NO&#x27;)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>6
+ABACAB
+ABBA
+AC
+ABC
+CABCBB
+BCBCBCBCBCBCBCBC
+</pre><h3>expected</h3><pre>NO
+YES
+NO
+NO
+YES
+YES
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;NO\nYES\nNO\nNO\nYES\nYES\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YES\nNO\nYES\nYES\nNO\nNO\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;NO\nYES\nNO\nNO\nYES\nYES\n&quot;,
+    &quot;mutant&quot;: &quot;YES\nNO\nYES\nYES\nNO\nNO\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 201 个可用官方案例（原始字段 202 个）。标签状态：unknown。</p></article><article><h2>370e212b-88c5-427c-88a2-b31281aaf4d6</h2><h3>spec</h3><pre>Casimir has a string $s$ which consists of capital Latin letters &#x27;A&#x27;, &#x27;B&#x27;, and &#x27;C&#x27; only. Each turn he can choose to do one of the two following actions:
+
+he can either erase exactly one letter &#x27;A&#x27; and exactly one letter &#x27;B&#x27; from arbitrary places of the string (these letters don&#x27;t have to be adjacent);
+
+or he can erase exactly one letter &#x27;B&#x27; and exactly one letter &#x27;C&#x27; from arbitrary places in the string (these letters don&#x27;t have to be adjacent).
+
+Therefore, each turn the length of the string is decreased exactly by $2$. All turns are independent so for each turn, Casimir can choose any of two possible actions.
+
+For example, with $s$ $=$ &quot;ABCABC&quot; he can obtain a string $s$ $=$ &quot;ACBC&quot; in one turn (by erasing the first occurrence of &#x27;B&#x27; and the second occurrence of &#x27;A&#x27;). There are also many other options for a turn aside from this particular example.
+
+For a given string $s$ determine whether there is a sequence of actions leading to an empty string. In other words, Casimir&#x27;s goal is to erase all letters from the string. Is there a way to do this?
+
+
+-----Input-----
+
+The first line contains an integer $t$ ($1 \le t \le 1000$) — the number of test cases.
+
+Each test case is described by one string $s$, for which you need to determine if it can be fully erased by some sequence of turns. The string $s$ consists of capital letters &#x27;A&#x27;, &#x27;B&#x27;, &#x27;C&#x27; and has a length from $1$ to $50$ letters, inclusive.
+
+
+-----Output-----
+
+Print $t$ lines, each line containing the answer to the corresponding test case. The answer to a test case should be YES if there is a way to fully erase the corresponding string and NO otherwise.
+
+You may print every letter in any case you want (so, for example, the strings yEs, yes, Yes, and YES will all be recognized as positive answers).
+
+
+-----Examples-----
+
+Input
+6
+ABACAB
+ABBA
+AC
+ABC
+CABCBB
+BCBCBCBCBCBCBCBC
+Output
+NO
+YES
+NO
+NO
+YES
+YES
+
+
+-----Note-----
+
+None</pre><h3>original_code</h3><pre>def solve(s):
+	return s.count(&#x27;B&#x27;) == s.count(&#x27;A&#x27;) + s.count(&#x27;C&#x27;)
+n = int(input())
+for i in range(n):
+	s = input()
+	if solve(s):
+		print(&#x27;YES&#x27;)
+	else:
+		print(&#x27;NO&#x27;)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>6
+ABACAB
+ABBA
+AC
+ABC
+CABCBB
+BCBCBCBCBCBCBCBC
+</pre><h3>expected</h3><pre>NO
+YES
+NO
+NO
+YES
+YES
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;NO\nYES\nNO\nNO\nYES\nYES\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YES\nYES\nYES\nNO\nNO\nNO\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;NO\nYES\nNO\nNO\nYES\nYES\n&quot;,
+    &quot;mutant&quot;: &quot;YES\nYES\nYES\nNO\nNO\nNO\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 201 个可用官方案例（原始字段 202 个）。标签状态：unknown。</p></article><article><h2>b9d1e0d3-54d9-467a-8f3e-63b10710879e</h2><h3>spec</h3><pre>Casimir has a string $s$ which consists of capital Latin letters &#x27;A&#x27;, &#x27;B&#x27;, and &#x27;C&#x27; only. Each turn he can choose to do one of the two following actions:
+
+he can either erase exactly one letter &#x27;A&#x27; and exactly one letter &#x27;B&#x27; from arbitrary places of the string (these letters don&#x27;t have to be adjacent);
+
+or he can erase exactly one letter &#x27;B&#x27; and exactly one letter &#x27;C&#x27; from arbitrary places in the string (these letters don&#x27;t have to be adjacent).
+
+Therefore, each turn the length of the string is decreased exactly by $2$. All turns are independent so for each turn, Casimir can choose any of two possible actions.
+
+For example, with $s$ $=$ &quot;ABCABC&quot; he can obtain a string $s$ $=$ &quot;ACBC&quot; in one turn (by erasing the first occurrence of &#x27;B&#x27; and the second occurrence of &#x27;A&#x27;). There are also many other options for a turn aside from this particular example.
+
+For a given string $s$ determine whether there is a sequence of actions leading to an empty string. In other words, Casimir&#x27;s goal is to erase all letters from the string. Is there a way to do this?
+
+
+-----Input-----
+
+The first line contains an integer $t$ ($1 \le t \le 1000$) — the number of test cases.
+
+Each test case is described by one string $s$, for which you need to determine if it can be fully erased by some sequence of turns. The string $s$ consists of capital letters &#x27;A&#x27;, &#x27;B&#x27;, &#x27;C&#x27; and has a length from $1$ to $50$ letters, inclusive.
+
+
+-----Output-----
+
+Print $t$ lines, each line containing the answer to the corresponding test case. The answer to a test case should be YES if there is a way to fully erase the corresponding string and NO otherwise.
+
+You may print every letter in any case you want (so, for example, the strings yEs, yes, Yes, and YES will all be recognized as positive answers).
+
+
+-----Examples-----
+
+Input
+6
+ABACAB
+ABBA
+AC
+ABC
+CABCBB
+BCBCBCBCBCBCBCBC
+Output
+NO
+YES
+NO
+NO
+YES
+YES
+
+
+-----Note-----
+
+None</pre><h3>original_code</h3><pre>def solve(s):
+	return s.count(&#x27;B&#x27;) == s.count(&#x27;A&#x27;) + s.count(&#x27;C&#x27;)
+n = int(input())
+for i in range(n):
+	s = input()
+	if solve(s):
+		print(&#x27;YES&#x27;)
+	else:
+		print(&#x27;NO&#x27;)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>6
+ABACAB
+ABBA
+AC
+ABC
+CABCBB
+BCBCBCBCBCBCBCBC
+</pre><h3>expected</h3><pre>NO
+YES
+NO
+NO
+YES
+YES
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;NO\nYES\nNO\nNO\nYES\nYES\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;NO\nYES\nNO\nNO\nYES\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;NO\nYES\nNO\nNO\nYES\nYES\n&quot;,
+    &quot;mutant&quot;: &quot;NO\nYES\nNO\nNO\nYES\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 201 个可用官方案例（原始字段 202 个）。标签状态：unknown。</p></article><article><h2>7057cac0-bea7-4601-807d-b6b6b3d45050</h2><h3>spec</h3><pre>There are N people standing in a row from west to east.
+Each person is facing east or west.
+The directions of the people is given as a string S of length N.
+The i-th person from the west is facing east if S_i = E, and west if S_i = W.
+You will appoint one of the N people as the leader, then command the rest of them to face in the direction of the leader.
+Here, we do not care which direction the leader is facing.
+The people in the row hate to change their directions, so you would like to select the leader so that the number of people who have to change their directions is minimized.
+Find the minimum number of people who have to change their directions.
+
+-----Constraints-----
+ - 2 \leq N \leq 3 \times 10^5
+ - |S| = N
+ - S_i is E or W.
+
+-----Input-----
+Input is given from Standard Input in the following format:
+N
+S
+
+-----Output-----
+Print the minimum number of people who have to change their directions.
+
+-----Sample Input-----
+5
+WEEWW
+
+-----Sample Output-----
+1
+
+Assume that we appoint the third person from the west as the leader.
+Then, the first person from the west needs to face east and has to turn around.
+The other people do not need to change their directions, so the number of people who have to change their directions is 1 in this case.
+It is not possible to have 0 people who have to change their directions, so the answer is 1.</pre><h3>original_code</h3><pre>n = int(input())
+s = input()
+cnt = s[1:].count(&#x27;E&#x27;)
+ans = cnt
+for i in range(1, n):
+	if s[i - 1] == &#x27;W&#x27;:
+		cnt += 1
+	if s[i] == &#x27;E&#x27;:
+		cnt -= 1
+	ans = min(ans, cnt)
+print(ans)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>12
+WEWEWEEEWWWE
+</pre><h3>expected</h3><pre>4
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;4\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;5\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;4\n&quot;,
+    &quot;mutant&quot;: &quot;5\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 2 / 3 个可用官方案例（原始字段 3 个）。标签状态：unknown。</p></article><article><h2>6115084f-1081-4c40-9297-d6d490b96c24</h2><h3>spec</h3><pre>Casimir has a string $s$ which consists of capital Latin letters &#x27;A&#x27;, &#x27;B&#x27;, and &#x27;C&#x27; only. Each turn he can choose to do one of the two following actions:
+
+he can either erase exactly one letter &#x27;A&#x27; and exactly one letter &#x27;B&#x27; from arbitrary places of the string (these letters don&#x27;t have to be adjacent);
+
+or he can erase exactly one letter &#x27;B&#x27; and exactly one letter &#x27;C&#x27; from arbitrary places in the string (these letters don&#x27;t have to be adjacent).
+
+Therefore, each turn the length of the string is decreased exactly by $2$. All turns are independent so for each turn, Casimir can choose any of two possible actions.
+
+For example, with $s$ $=$ &quot;ABCABC&quot; he can obtain a string $s$ $=$ &quot;ACBC&quot; in one turn (by erasing the first occurrence of &#x27;B&#x27; and the second occurrence of &#x27;A&#x27;). There are also many other options for a turn aside from this particular example.
+
+For a given string $s$ determine whether there is a sequence of actions leading to an empty string. In other words, Casimir&#x27;s goal is to erase all letters from the string. Is there a way to do this?
+
+
+-----Input-----
+
+The first line contains an integer $t$ ($1 \le t \le 1000$) — the number of test cases.
+
+Each test case is described by one string $s$, for which you need to determine if it can be fully erased by some sequence of turns. The string $s$ consists of capital letters &#x27;A&#x27;, &#x27;B&#x27;, &#x27;C&#x27; and has a length from $1$ to $50$ letters, inclusive.
+
+
+-----Output-----
+
+Print $t$ lines, each line containing the answer to the corresponding test case. The answer to a test case should be YES if there is a way to fully erase the corresponding string and NO otherwise.
+
+You may print every letter in any case you want (so, for example, the strings yEs, yes, Yes, and YES will all be recognized as positive answers).
+
+
+-----Examples-----
+
+Input
+6
+ABACAB
+ABBA
+AC
+ABC
+CABCBB
+BCBCBCBCBCBCBCBC
+Output
+NO
+YES
+NO
+NO
+YES
+YES
+
+
+-----Note-----
+
+None</pre><h3>original_code</h3><pre>def solve(s):
+	return s.count(&#x27;B&#x27;) == s.count(&#x27;A&#x27;) + s.count(&#x27;C&#x27;)
+n = int(input())
+for i in range(n):
+	s = input()
+	if solve(s):
+		print(&#x27;YES&#x27;)
+	else:
+		print(&#x27;NO&#x27;)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>6
+ABACAB
+ABBA
+AC
+ABC
+CABCBB
+BCBCBCBCBCBCBCBC
+</pre><h3>expected</h3><pre>NO
+YES
+NO
+NO
+YES
+YES
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;NO\nYES\nNO\nNO\nYES\nYES\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;NO\nNO\nNO\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;NO\nYES\nNO\nNO\nYES\nYES\n&quot;,
+    &quot;mutant&quot;: &quot;NO\nNO\nNO\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 201 个可用官方案例（原始字段 202 个）。标签状态：unknown。</p></article><article><h2>6325228f-fa3d-4c9a-b7a5-bbf42b945ef1</h2><h3>spec</h3><pre>There are N people standing in a row from west to east.
+Each person is facing east or west.
+The directions of the people is given as a string S of length N.
+The i-th person from the west is facing east if S_i = E, and west if S_i = W.
+You will appoint one of the N people as the leader, then command the rest of them to face in the direction of the leader.
+Here, we do not care which direction the leader is facing.
+The people in the row hate to change their directions, so you would like to select the leader so that the number of people who have to change their directions is minimized.
+Find the minimum number of people who have to change their directions.
+
+-----Constraints-----
+ - 2 \leq N \leq 3 \times 10^5
+ - |S| = N
+ - S_i is E or W.
+
+-----Input-----
+Input is given from Standard Input in the following format:
+N
+S
+
+-----Output-----
+Print the minimum number of people who have to change their directions.
+
+-----Sample Input-----
+5
+WEEWW
+
+-----Sample Output-----
+1
+
+Assume that we appoint the third person from the west as the leader.
+Then, the first person from the west needs to face east and has to turn around.
+The other people do not need to change their directions, so the number of people who have to change their directions is 1 in this case.
+It is not possible to have 0 people who have to change their directions, so the answer is 1.</pre><h3>original_code</h3><pre>n = int(input())
+s = input()
+cnt = s[1:].count(&#x27;E&#x27;)
+ans = cnt
+for i in range(1, n):
+	if s[i - 1] == &#x27;W&#x27;:
+		cnt += 1
+	if s[i] == &#x27;E&#x27;:
+		cnt -= 1
+	ans = min(ans, cnt)
+print(ans)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>5
+WEEWW
+</pre><h3>expected</h3><pre>1
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;1\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;-2\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;1\n&quot;,
+    &quot;mutant&quot;: &quot;-2\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 3 个可用官方案例（原始字段 3 个）。标签状态：unknown。</p></article><article><h2>779f4e13-ca41-4eca-97a2-a2375a7af36e</h2><h3>spec</h3><pre>There are N people standing in a row from west to east.
+Each person is facing east or west.
+The directions of the people is given as a string S of length N.
+The i-th person from the west is facing east if S_i = E, and west if S_i = W.
+You will appoint one of the N people as the leader, then command the rest of them to face in the direction of the leader.
+Here, we do not care which direction the leader is facing.
+The people in the row hate to change their directions, so you would like to select the leader so that the number of people who have to change their directions is minimized.
+Find the minimum number of people who have to change their directions.
+
+-----Constraints-----
+ - 2 \leq N \leq 3 \times 10^5
+ - |S| = N
+ - S_i is E or W.
+
+-----Input-----
+Input is given from Standard Input in the following format:
+N
+S
+
+-----Output-----
+Print the minimum number of people who have to change their directions.
+
+-----Sample Input-----
+5
+WEEWW
+
+-----Sample Output-----
+1
+
+Assume that we appoint the third person from the west as the leader.
+Then, the first person from the west needs to face east and has to turn around.
+The other people do not need to change their directions, so the number of people who have to change their directions is 1 in this case.
+It is not possible to have 0 people who have to change their directions, so the answer is 1.</pre><h3>original_code</h3><pre>n = int(input())
+s = input()
+cnt = s[1:].count(&#x27;E&#x27;)
+ans = cnt
+for i in range(1, n):
+	if s[i - 1] == &#x27;W&#x27;:
+		cnt += 1
+	if s[i] == &#x27;E&#x27;:
+		cnt -= 1
+	ans = min(ans, cnt)
+print(ans)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>12
+WEWEWEEEWWWE
+</pre><h3>expected</h3><pre>4
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;4\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;5\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;4\n&quot;,
+    &quot;mutant&quot;: &quot;5\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 2 / 3 个可用官方案例（原始字段 3 个）。标签状态：unknown。</p></article><article><h2>198ad830-d0b9-4edb-b6b3-8613357d1f27</h2><h3>spec</h3><pre>There are N people standing in a row from west to east.
+Each person is facing east or west.
+The directions of the people is given as a string S of length N.
+The i-th person from the west is facing east if S_i = E, and west if S_i = W.
+You will appoint one of the N people as the leader, then command the rest of them to face in the direction of the leader.
+Here, we do not care which direction the leader is facing.
+The people in the row hate to change their directions, so you would like to select the leader so that the number of people who have to change their directions is minimized.
+Find the minimum number of people who have to change their directions.
+
+-----Constraints-----
+ - 2 \leq N \leq 3 \times 10^5
+ - |S| = N
+ - S_i is E or W.
+
+-----Input-----
+Input is given from Standard Input in the following format:
+N
+S
+
+-----Output-----
+Print the minimum number of people who have to change their directions.
+
+-----Sample Input-----
+5
+WEEWW
+
+-----Sample Output-----
+1
+
+Assume that we appoint the third person from the west as the leader.
+Then, the first person from the west needs to face east and has to turn around.
+The other people do not need to change their directions, so the number of people who have to change their directions is 1 in this case.
+It is not possible to have 0 people who have to change their directions, so the answer is 1.</pre><h3>original_code</h3><pre>n = int(input())
+s = input()
+cnt = s[1:].count(&#x27;E&#x27;)
+ans = cnt
+for i in range(1, n):
+	if s[i - 1] == &#x27;W&#x27;:
+		cnt += 1
+	if s[i] == &#x27;E&#x27;:
+		cnt -= 1
+	ans = min(ans, cnt)
+print(ans)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>5
+WEEWW
+</pre><h3>expected</h3><pre>1
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;1\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;2\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;1\n&quot;,
+    &quot;mutant&quot;: &quot;2\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 3 个可用官方案例（原始字段 3 个）。标签状态：unknown。</p></article><article><h2>d34a3ebb-492d-4e4e-aa84-07e36cc1f6b9</h2><h3>spec</h3><pre>We all love the future president (or Führer or duce or sōtō as he could find them more fitting) donald trump, but we might fear that some of his many fans like John Miller or John Barron are not making him justice, sounding too much like their (and our as well, of course!) hero and thus risking to compromise him.
+
+For this reason we need to create a function to detect the original and unique rythm of our beloved leader, typically having a lot of extra vowels, all ready to fight the estabilishment.
+
+The index is calculated based on how many vowels are repeated more than once in a row and dividing them by the total number of vowels a petty enemy of America would use.
+
+For example:
+```python
+trump_detector(&quot;I will build a huge wall&quot;)==0 #definitely not our trump: 0 on the trump score
+trump_detector(&quot;HUUUUUGEEEE WAAAAAALL&quot;)==4 #4 extra &quot;U&quot;, 3 extra &quot;E&quot; and 5 extra &quot;A&quot; on 3 different vowel groups: 12/3 make for a trumpy trumping score of 4: not bad at all!
+trump_detector(&quot;listen migrants: IIII KIIIDD YOOOUUU NOOOOOOTTT&quot;)==1.56 #14 extra vowels on 9 base ones
+```
+**Notes:** vowels are only the ones in the patriotic group of &quot;aeiou&quot;: &quot;y&quot; should go back to Greece if she thinks she can have the same rights of true American vowels; there is always going to be at least a vowel, as silence is the option of coward Kenyan/terrorist presidents and their friends.
+
+Round each result by two decimal digits: there is no place for small fry in Trump&#x27;s America.
+
+*Special thanks for [Izabela](https://www.codewars.com/users/ijelonek) for support and proof-reading.*</pre><h3>original_code</h3><pre>from itertools import groupby
+from statistics import mean
+
+def trump_detector(trump_speech):
+	return round(mean((len(list(l)) - 1 for (k, l) in groupby(trump_speech.lower()) if k in &#x27;aeiou&#x27;)), 2)
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;trump_detector&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  &quot;I will build a huge wall&quot;
+]</pre><h3>expected</h3><pre>0</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 0,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 2,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: 0,
+    &quot;mutant&quot;: 2,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 1 / 5 个可用官方案例（原始字段 5 个）。标签状态：unknown。</p></article><article><h2>51188aeb-0e95-4597-a9bf-4b776517c18f</h2><h3>spec</h3><pre>Two polar bears Menshykov and Uslada from the St.Petersburg zoo and elephant Horace from the Kiev zoo got six sticks to play with and assess the animals&#x27; creativity. Menshykov, Uslada and Horace decided to make either an elephant or a bear from those sticks. They can make an animal from sticks in the following way: 
+
+  * Four sticks represent the animal&#x27;s legs, these sticks should have the same length. 
+  * Two remaining sticks represent the animal&#x27;s head and body. The bear&#x27;s head stick must be shorter than the body stick. The elephant, however, has a long trunk, so his head stick must be as long as the body stick. Note that there are no limits on the relations between the leg sticks and the head and body sticks. 
+
+
+
+Your task is to find out which animal can be made from the given stick set. The zoo keeper wants the sticks back after the game, so they must never be broken, even bears understand it.
+
+Input
+
+The single line contains six space-separated integers li (1 ≤ li ≤ 9) — the lengths of the six sticks. It is guaranteed that the input is such that you cannot make both animals from the sticks.
+
+Output
+
+If you can make a bear from the given set, print string &quot;Bear&quot; (without the quotes). If you can make an elephant, print string &quot;Elephant&quot; (wıthout the quotes). If you can make neither a bear nor an elephant, print string &quot;Alien&quot; (without the quotes).
+
+Examples
+
+Input
+
+4 2 5 4 4 4
+
+
+Output
+
+Bear
+
+Input
+
+4 4 5 4 4 5
+
+
+Output
+
+Elephant
+
+Input
+
+1 2 3 4 5 6
+
+
+Output
+
+Alien
+
+Note
+
+If you&#x27;re out of creative ideas, see instructions below which show how to make a bear and an elephant in the first two samples. The stick of length 2 is in red, the sticks of length 4 are in green, the sticks of length 5 are in blue. 
+
+&lt;image&gt;</pre><h3>original_code</h3><pre>a = list(map(int, input().split()))
+for i in range(6):
+	if a.count(a[i]) &gt;= 4:
+		v = a[i]
+		break
+else:
+	print(&#x27;Alien&#x27;)
+	exit()
+for i in range(4):
+	a.remove(v)
+a.sort()
+if a[0] &lt; a[1]:
+	print(&#x27;Bear&#x27;)
+elif a[0] == a[1]:
+	print(&#x27;Elephant&#x27;)
+else:
+	print(&#x27;Alien&#x27;)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>5 5 5 5 5 5
+</pre><h3>expected</h3><pre>Elephant
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;Elephant\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;Bear\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;Elephant\n&quot;,
+    &quot;mutant&quot;: &quot;Bear\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 108 个可用官方案例（原始字段 108 个）。标签状态：unknown。</p></article><article><h2>0fa77006-0890-4e0b-a165-499fe26b3ff7</h2><h3>spec</h3><pre>Two polar bears Menshykov and Uslada from the St.Petersburg zoo and elephant Horace from the Kiev zoo got six sticks to play with and assess the animals&#x27; creativity. Menshykov, Uslada and Horace decided to make either an elephant or a bear from those sticks. They can make an animal from sticks in the following way: 
+
+  * Four sticks represent the animal&#x27;s legs, these sticks should have the same length. 
+  * Two remaining sticks represent the animal&#x27;s head and body. The bear&#x27;s head stick must be shorter than the body stick. The elephant, however, has a long trunk, so his head stick must be as long as the body stick. Note that there are no limits on the relations between the leg sticks and the head and body sticks. 
+
+
+
+Your task is to find out which animal can be made from the given stick set. The zoo keeper wants the sticks back after the game, so they must never be broken, even bears understand it.
+
+Input
+
+The single line contains six space-separated integers li (1 ≤ li ≤ 9) — the lengths of the six sticks. It is guaranteed that the input is such that you cannot make both animals from the sticks.
+
+Output
+
+If you can make a bear from the given set, print string &quot;Bear&quot; (without the quotes). If you can make an elephant, print string &quot;Elephant&quot; (wıthout the quotes). If you can make neither a bear nor an elephant, print string &quot;Alien&quot; (without the quotes).
+
+Examples
+
+Input
+
+4 2 5 4 4 4
+
+
+Output
+
+Bear
+
+Input
+
+4 4 5 4 4 5
+
+
+Output
+
+Elephant
+
+Input
+
+1 2 3 4 5 6
+
+
+Output
+
+Alien
+
+Note
+
+If you&#x27;re out of creative ideas, see instructions below which show how to make a bear and an elephant in the first two samples. The stick of length 2 is in red, the sticks of length 4 are in green, the sticks of length 5 are in blue. 
+
+&lt;image&gt;</pre><h3>original_code</h3><pre>a = list(map(int, input().split()))
+for i in range(6):
+	if a.count(a[i]) &gt;= 4:
+		v = a[i]
+		break
+else:
+	print(&#x27;Alien&#x27;)
+	exit()
+for i in range(4):
+	a.remove(v)
+a.sort()
+if a[0] &lt; a[1]:
+	print(&#x27;Bear&#x27;)
+elif a[0] == a[1]:
+	print(&#x27;Elephant&#x27;)
+else:
+	print(&#x27;Alien&#x27;)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>4 4 4 4 4 2
+</pre><h3>expected</h3><pre>Bear
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;Bear\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;Alien\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;Bear\n&quot;,
+    &quot;mutant&quot;: &quot;Alien\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 12 / 108 个可用官方案例（原始字段 108 个）。标签状态：unknown。</p></article><article><h2>b1888422-f40e-4c3d-b296-a06d630cf804</h2><h3>spec</h3><pre>We all love the future president (or Führer or duce or sōtō as he could find them more fitting) donald trump, but we might fear that some of his many fans like John Miller or John Barron are not making him justice, sounding too much like their (and our as well, of course!) hero and thus risking to compromise him.
+
+For this reason we need to create a function to detect the original and unique rythm of our beloved leader, typically having a lot of extra vowels, all ready to fight the estabilishment.
+
+The index is calculated based on how many vowels are repeated more than once in a row and dividing them by the total number of vowels a petty enemy of America would use.
+
+For example:
+```python
+trump_detector(&quot;I will build a huge wall&quot;)==0 #definitely not our trump: 0 on the trump score
+trump_detector(&quot;HUUUUUGEEEE WAAAAAALL&quot;)==4 #4 extra &quot;U&quot;, 3 extra &quot;E&quot; and 5 extra &quot;A&quot; on 3 different vowel groups: 12/3 make for a trumpy trumping score of 4: not bad at all!
+trump_detector(&quot;listen migrants: IIII KIIIDD YOOOUUU NOOOOOOTTT&quot;)==1.56 #14 extra vowels on 9 base ones
+```
+**Notes:** vowels are only the ones in the patriotic group of &quot;aeiou&quot;: &quot;y&quot; should go back to Greece if she thinks she can have the same rights of true American vowels; there is always going to be at least a vowel, as silence is the option of coward Kenyan/terrorist presidents and their friends.
+
+Round each result by two decimal digits: there is no place for small fry in Trump&#x27;s America.
+
+*Special thanks for [Izabela](https://www.codewars.com/users/ijelonek) for support and proof-reading.*</pre><h3>original_code</h3><pre>from itertools import groupby
+from statistics import mean
+
+def trump_detector(trump_speech):
+	return round(mean((len(list(l)) - 1 for (k, l) in groupby(trump_speech.lower()) if k in &#x27;aeiou&#x27;)), 2)
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;trump_detector&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  &quot;I will build a huge wall&quot;
+]</pre><h3>expected</h3><pre>0</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 0,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: null,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: 0,
+    &quot;mutant&quot;: null,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 1 / 5 个可用官方案例（原始字段 5 个）。标签状态：unknown。</p></article><article><h2>26ee37f8-4ad8-4fef-891a-f801e03aa6e2</h2><h3>spec</h3><pre>Snuke found a random number generator. It generates an integer between 0 and 2^N-1 (inclusive). An integer sequence A_0, A_1, \cdots, A_{2^N-1} represents the probability that each of these integers is generated. The integer i (0 \leq i \leq 2^N-1) is generated with probability A_i / S, where S = \sum_{i=0}^{2^N-1} A_i. The process of generating an integer is done independently each time the generator is executed.
+
+Snuke has an integer X, which is now 0. He can perform the following operation any number of times:
+
+* Generate an integer v with the generator and replace X with X \oplus v, where \oplus denotes the bitwise XOR.
+
+
+
+For each integer i (0 \leq i \leq 2^N-1), find the expected number of operations until X becomes i, and print it modulo 998244353. More formally, represent the expected number of operations as an irreducible fraction P/Q. Then, there exists a unique integer R such that R \times Q \equiv P \mod 998244353,\ 0 \leq R &lt; 998244353, so print this R.
+
+We can prove that, for every i, the expected number of operations until X becomes i is a finite rational number, and its integer representation modulo 998244353 can be defined.
+
+Constraints
+
+* 1 \leq N \leq 18
+* 1 \leq A_i \leq 1000
+* All values in input are integers.
+
+Input
+
+Input is given from Standard Input in the following format:
+
+
+N
+A_0 A_1 \cdots A_{2^N-1}
+
+
+Output
+
+Print 2^N lines. The (i+1)-th line (0 \leq i \leq 2^N-1) should contain the expected number of operations until X becomes i, modulo 998244353.
+
+Examples
+
+Input
+
+2
+1 1 1 1
+
+
+Output
+
+0
+4
+4
+4
+
+
+Input
+
+2
+1 2 1 2
+
+
+Output
+
+0
+499122180
+4
+499122180
+
+
+Input
+
+4
+337 780 799 10 796 875 331 223 941 67 148 483 390 565 116 355
+
+
+Output
+
+0
+468683018
+635850749
+96019779
+657074071
+24757563
+745107950
+665159588
+551278361
+143136064
+557841197
+185790407
+988018173
+247117461
+129098626
+789682908</pre><h3>original_code</h3><pre>N = int(input())
+A = [int(i) for i in input().split()]
+MOD = 998244353
+NN = 1 &lt;&lt; N
+
+def fwht(a):
+	i = 1
+	while i &lt; NN:
+		j = 0
+		while j &lt; NN:
+			for k in range(i):
+				(x, y) = (a[j + k], a[i + j + k])
+				(a[j + k], a[i + j + k]) = ((x + y) % MOD, (x - y) % MOD)
+			j += i &lt;&lt; 1
+		i &lt;&lt;= 1
+
+def inv(x):
+	return pow(x, MOD - 2, MOD)
+s = inv(sum(A) % MOD)
+for i in range(NN):
+	A[i] = A[i] * s % MOD
+A[0] = (A[0] - 1) % MOD
+fwht(A)
+B = [-1] * NN
+B[0] = (NN - 1) % MOD
+fwht(B)
+C = [inv(A[i]) * B[i] % MOD for i in range(NN)]
+fwht(C)
+for i in range(NN):
+	C[i] = C[i] * inv(NN) % MOD
+for i in range(NN):
+	print((C[i] - C[0]) % MOD)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>4
+337 780 799 10 796 875 331 223 941 67 268 483 390 565 116 355</pre><h3>expected</h3><pre>0
+674015595
+896398844
+723441612
+111757501
+387101531
+320322837
+911027328
+938195369
+659817401
+560701718
+374484089
+73966157
+948486904
+523921254
+102456316
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;0\n674015595\n896398844\n723441612\n111757501\n387101531\n320322837\n911027328\n938195369\n659817401\n560701718\n374484089\n73966157\n948486904\n523921254\n102456316\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;0\n932973943\n991726825\n486061548\n686144694\n448233480\n786053548\n235310070\n149069914\n119664315\n165518394\n580208222\n587446390\n555146115\n514259338\n370049106\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;0\n674015595\n896398844\n723441612\n111757501\n387101531\n320322837\n911027328\n938195369\n659817401\n560701718\n374484089\n73966157\n948486904\n523921254\n102456316\n&quot;,
+    &quot;mutant&quot;: &quot;0\n932973943\n991726825\n486061548\n686144694\n448233480\n786053548\n235310070\n149069914\n119664315\n165518394\n580208222\n587446390\n555146115\n514259338\n370049106\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 103 个可用官方案例（原始字段 103 个）。标签状态：unknown。</p></article><article><h2>63094558-c98b-4dda-908c-9ff603f30a22</h2><h3>spec</h3><pre>You probably know the &quot;like&quot; system from Facebook and other pages. People can &quot;like&quot; blog posts, pictures or other items. We want to create the text that should be displayed next to such an item.
+
+Implement a function `likes :: [String] -&gt; String`, which must take in input array, containing the names of people who like an item. It must return the display text as shown in the examples:
+
+```python
+likes([]) # must be &quot;no one likes this&quot;
+likes([&quot;Peter&quot;]) # must be &quot;Peter likes this&quot;
+likes([&quot;Jacob&quot;, &quot;Alex&quot;]) # must be &quot;Jacob and Alex like this&quot;
+likes([&quot;Max&quot;, &quot;John&quot;, &quot;Mark&quot;]) # must be &quot;Max, John and Mark like this&quot;
+likes([&quot;Alex&quot;, &quot;Jacob&quot;, &quot;Mark&quot;, &quot;Max&quot;]) # must be &quot;Alex, Jacob and 2 others like this&quot;
+```
+
+For 4 or more names, the number in `and 2 others` simply increases.</pre><h3>original_code</h3><pre>def likes(names):
+	n = len(names)
+	return {0: &#x27;no one likes this&#x27;, 1: &#x27;{} likes this&#x27;, 2: &#x27;{} and {} like this&#x27;, 3: &#x27;{}, {} and {} like this&#x27;, 4: &#x27;{}, {} and {others} others like this&#x27;}[min(4, n)].format(*names[:3], others=n - 2)
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;likes&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  [
+    &quot;Alex&quot;,
+    &quot;Jacob&quot;,
+    &quot;Mark&quot;,
+    &quot;Max&quot;
+  ]
+]</pre><h3>expected</h3><pre>Alex, Jacob and 2 others like this</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;Alex, Jacob and 2 others like this&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;Alex, Jacob and 6 others like this&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;Alex, Jacob and 2 others like this&quot;,
+    &quot;mutant&quot;: &quot;Alex, Jacob and 6 others like this&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 5 / 5 个可用官方案例（原始字段 5 个）。标签状态：unknown。</p></article><article><h2>abbfc712-f7a6-4b89-af5c-992dfa36d58c</h2><h3>spec</h3><pre>Jerry is a little mouse. He is trying to survive from the cat Tom. Jerry is carrying a parallelepiped-like piece of cheese of size A × B × C. It is necessary to trail this cheese to the Jerry&#x27;s house. There are several entrances in the Jerry&#x27;s house. Each entrance is a rounded hole having its own radius R. Could you help Jerry to find suitable holes to be survive?
+
+Your task is to create a program which estimates whether Jerry can trail the cheese via each hole. The program should print &quot;OK&quot; if Jerry can trail the cheese via the corresponding hole (without touching it). Otherwise the program should print &quot;NA&quot;.
+
+You may assume that the number of holes is less than 10000.
+
+
+
+Input
+
+The input is a sequence of datasets. The end of input is indicated by a line containing three zeros. Each dataset is formatted as follows:
+
+
+A B C
+n
+R1
+R2
+
+.
+.
+Rn
+
+
+n indicates the number of holes (entrances) and Ri indicates the radius of i-th hole.
+
+Output
+
+For each datasets, the output should have n lines. Each line points the result of estimation of the corresponding hole.
+
+Example
+
+Input
+
+10 6 8
+5
+4
+8
+6
+2
+5
+0 0 0
+
+
+Output
+
+NA
+OK
+OK
+NA
+NA</pre><h3>original_code</h3><pre>while True:
+	(d, w, h) = sorted(map(int, input().split()))
+	if d == w == h == 0:
+		break
+	dw = d ** 2 + w ** 2
+	n = int(input())
+	for i in range(n):
+		y = int(input())
+		if (2 * y) ** 2 &gt; dw:
+			print(&#x27;OK&#x27;)
+		else:
+			print(&#x27;NA&#x27;)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>10 6 8
+5
+4
+1
+6
+2
+5
+0 0 0</pre><h3>expected</h3><pre>NA
+NA
+OK
+NA
+NA
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;NA\nNA\nOK\nNA\nNA\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;NA\nNA\nOK\nNA\nOK\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;NA\nNA\nOK\nNA\nNA\n&quot;,
+    &quot;mutant&quot;: &quot;NA\nNA\nOK\nNA\nOK\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 101 个可用官方案例（原始字段 101 个）。标签状态：unknown。</p></article><article><h2>e1a73bd3-b9c7-45e6-a5ac-ef99a6f039fa</h2><h3>spec</h3><pre>We all love the future president (or Führer or duce or sōtō as he could find them more fitting) donald trump, but we might fear that some of his many fans like John Miller or John Barron are not making him justice, sounding too much like their (and our as well, of course!) hero and thus risking to compromise him.
+
+For this reason we need to create a function to detect the original and unique rythm of our beloved leader, typically having a lot of extra vowels, all ready to fight the estabilishment.
+
+The index is calculated based on how many vowels are repeated more than once in a row and dividing them by the total number of vowels a petty enemy of America would use.
+
+For example:
+```python
+trump_detector(&quot;I will build a huge wall&quot;)==0 #definitely not our trump: 0 on the trump score
+trump_detector(&quot;HUUUUUGEEEE WAAAAAALL&quot;)==4 #4 extra &quot;U&quot;, 3 extra &quot;E&quot; and 5 extra &quot;A&quot; on 3 different vowel groups: 12/3 make for a trumpy trumping score of 4: not bad at all!
+trump_detector(&quot;listen migrants: IIII KIIIDD YOOOUUU NOOOOOOTTT&quot;)==1.56 #14 extra vowels on 9 base ones
+```
+**Notes:** vowels are only the ones in the patriotic group of &quot;aeiou&quot;: &quot;y&quot; should go back to Greece if she thinks she can have the same rights of true American vowels; there is always going to be at least a vowel, as silence is the option of coward Kenyan/terrorist presidents and their friends.
+
+Round each result by two decimal digits: there is no place for small fry in Trump&#x27;s America.
+
+*Special thanks for [Izabela](https://www.codewars.com/users/ijelonek) for support and proof-reading.*</pre><h3>original_code</h3><pre>from itertools import groupby
+from statistics import mean
+
+def trump_detector(trump_speech):
+	return round(mean((len(list(l)) - 1 for (k, l) in groupby(trump_speech.lower()) if k in &#x27;aeiou&#x27;)), 2)
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;trump_detector&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  &quot;America NUUUUUKEEEE Oooobaaaamaaaaa&quot;
+]</pre><h3>expected</h3><pre>1.89</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 1.89,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 1.889,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: 1.89,
+    &quot;mutant&quot;: 1.889,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 4 / 5 个可用官方案例（原始字段 5 个）。标签状态：unknown。</p></article><article><h2>d61bb1ef-9680-44fd-8e2d-b07687b76f6f</h2><h3>spec</h3><pre>Mole is hungry again. He found one ant colony, consisting of n ants, ordered in a row. Each ant i (1 ≤ i ≤ n) has a strength si.
+
+In order to make his dinner more interesting, Mole organizes a version of «Hunger Games» for the ants. He chooses two numbers l and r (1 ≤ l ≤ r ≤ n) and each pair of ants with indices between l and r (inclusively) will fight. When two ants i and j fight, ant i gets one battle point only if si divides sj (also, ant j gets one battle point only if sj divides si). 
+
+After all fights have been finished, Mole makes the ranking. An ant i, with vi battle points obtained, is going to be freed only if vi = r - l, or in other words only if it took a point in every fight it participated. After that, Mole eats the rest of the ants. Note that there can be many ants freed or even none.
+
+In order to choose the best sequence, Mole gives you t segments [li, ri] and asks for each of them how many ants is he going to eat if those ants fight.
+
+Input
+
+The first line contains one integer n (1 ≤ n ≤ 105), the size of the ant colony. 
+
+The second line contains n integers s1, s2, ..., sn (1 ≤ si ≤ 109), the strengths of the ants. 
+
+The third line contains one integer t (1 ≤ t ≤ 105), the number of test cases. 
+
+Each of the next t lines contains two integers li and ri (1 ≤ li ≤ ri ≤ n), describing one query.
+
+Output
+
+Print to the standard output t lines. The i-th line contains number of ants that Mole eats from the segment [li, ri].
+
+Examples
+
+Input
+
+5
+1 3 2 4 2
+4
+1 5
+2 5
+3 5
+4 5
+
+
+Output
+
+4
+4
+1
+1
+
+Note
+
+In the first test battle points for each ant are v = [4, 0, 2, 0, 2], so ant number 1 is freed. Mole eats the ants 2, 3, 4, 5.
+
+In the second test case battle points are v = [0, 2, 0, 2], so no ant is freed and all of them are eaten by Mole.
+
+In the third test case battle points are v = [2, 0, 2], so ants number 3 and 5 are freed. Mole eats only the ant 4.
+
+In the fourth test case battle points are v = [0, 1], so ant number 5 is freed. Mole eats the ant 4.</pre><h3>original_code</h3><pre>from math import gcd
+
+class SegTree:
+
+	def __init__(self, arr=None, length=None):
+		if arr is not None:
+			self.n = len(arr)
+			self.t = [1 for _ in range(2 * self.n)]
+			self.ct = [0] * self.n + [1] * self.n
+			self.construct(arr)
+		else:
+			assert False
+			self.n = length
+			self.t = [1 for _ in range(2 * self.n)]
+
+	def construct(self, arr):
+		self.t[self.n:] = arr
+		for i in reversed(range(0, self.n)):
+			self.t[i] = gcd(self.t[i * 2], self.t[i * 2 + 1])
+			if self.t[i] == self.t[i * 2]:
+				self.ct[i] += self.ct[i * 2]
+			if self.t[i] == self.t[i * 2 + 1]:
+				self.ct[i] += self.ct[i * 2 + 1]
+
+	def modify(self, p, val):
+		p += self.n
+		self.t[p] = val
+		self.ct[p] = 1
+		while p &gt; 1:
+			self.t[p // 2] = gcd(self.t[p], self.t[p ^ 1])
+			self.ct[p // 2] = 0
+			if self.t[p // 2] == self.t[p]:
+				self.ct[p // 2] += self.ct[p]
+			if self.t[p // 2] == self.t[p ^ 1]:
+				self.ct[p // 2] += self.ct[p ^ 1]
+			p //= 2
+
+	def gcd_query(self, l, r):
+		l += self.n
+		r += self.n
+		res = self.t[l]
+		while l &lt; r:
+			if l &amp; 1:
+				res = gcd(res, self.t[l])
+				l += 1
+			if r &amp; 1:
+				r -= 1
+				res = gcd(res, self.t[r])
+			l //= 2
+			r //= 2
+		return res
+
+	def query_num_eq_gcd(self, l, r):
+		my_gcd = self.gcd_query(l, r)
+		l += self.n
+		r += self.n
+		res = 0
+		while l &lt; r:
+			if l &amp; 1:
+				if self.t[l] == my_gcd:
+					res += self.ct[l]
+				l += 1
+			if r &amp; 1:
+				r -= 1
+				if self.t[r] == my_gcd:
+					res += self.ct[r]
+			l //= 2
+			r //= 2
+		return res
+import sys
+n = int(input())
+s = [int(x) for x in input().split()]
+st = SegTree(arr=s)
+t = int(input())
+for _ in range(t):
+	(l, r) = [int(x) for x in sys.stdin.readline().split()]
+	print(r - l + 1 - st.query_num_eq_gcd(l - 1, r))
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>5
+1 5 2 4 2
+4
+1 5
+2 5
+3 5
+4 5
+</pre><h3>expected</h3><pre>4
+4
+1
+1
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;4\n4\n1\n1\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;5\n4\n2\n1\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;4\n4\n1\n1\n&quot;,
+    &quot;mutant&quot;: &quot;5\n4\n2\n1\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 50 个可用官方案例（原始字段 50 个）。标签状态：unknown。</p></article><article><h2>d8153fe7-c6c7-4e4c-ae3d-2cb656c73a8d</h2><h3>spec</h3><pre>You probably know the &quot;like&quot; system from Facebook and other pages. People can &quot;like&quot; blog posts, pictures or other items. We want to create the text that should be displayed next to such an item.
+
+Implement a function `likes :: [String] -&gt; String`, which must take in input array, containing the names of people who like an item. It must return the display text as shown in the examples:
+
+```python
+likes([]) # must be &quot;no one likes this&quot;
+likes([&quot;Peter&quot;]) # must be &quot;Peter likes this&quot;
+likes([&quot;Jacob&quot;, &quot;Alex&quot;]) # must be &quot;Jacob and Alex like this&quot;
+likes([&quot;Max&quot;, &quot;John&quot;, &quot;Mark&quot;]) # must be &quot;Max, John and Mark like this&quot;
+likes([&quot;Alex&quot;, &quot;Jacob&quot;, &quot;Mark&quot;, &quot;Max&quot;]) # must be &quot;Alex, Jacob and 2 others like this&quot;
+```
+
+For 4 or more names, the number in `and 2 others` simply increases.</pre><h3>original_code</h3><pre>def likes(names):
+	n = len(names)
+	return {0: &#x27;no one likes this&#x27;, 1: &#x27;{} likes this&#x27;, 2: &#x27;{} and {} like this&#x27;, 3: &#x27;{}, {} and {} like this&#x27;, 4: &#x27;{}, {} and {others} others like this&#x27;}[min(4, n)].format(*names[:3], others=n - 2)
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;likes&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  [
+    &quot;Alex&quot;,
+    &quot;Jacob&quot;,
+    &quot;Mark&quot;,
+    &quot;Max&quot;
+  ]
+]</pre><h3>expected</h3><pre>Alex, Jacob and 2 others like this</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;Alex, Jacob and 2 others like this&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;Alex, Jacob and Mark like this&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;Alex, Jacob and 2 others like this&quot;,
+    &quot;mutant&quot;: &quot;Alex, Jacob and Mark like this&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 5 / 5 个可用官方案例（原始字段 5 个）。标签状态：unknown。</p></article><article><h2>27396253-97cf-42f0-b60b-07c3b6064b0e</h2><h3>spec</h3><pre>There are X+Y+Z people, conveniently numbered 1 through X+Y+Z. Person i has A_i gold coins, B_i silver coins and C_i bronze coins.
+
+Snuke is thinking of getting gold coins from X of those people, silver coins from Y of the people and bronze coins from Z of the people. It is not possible to get two or more different colors of coins from a single person. On the other hand, a person will give all of his/her coins of the color specified by Snuke.
+
+Snuke would like to maximize the total number of coins of all colors he gets. Find the maximum possible number of coins.
+
+Constraints
+
+* 1 \leq X
+* 1 \leq Y
+* 1 \leq Z
+* X+Y+Z \leq 10^5
+* 1 \leq A_i \leq 10^9
+* 1 \leq B_i \leq 10^9
+* 1 \leq C_i \leq 10^9
+
+Input
+
+Input is given from Standard Input in the following format:
+
+
+X Y Z
+A_1 B_1 C_1
+A_2 B_2 C_2
+:
+A_{X+Y+Z} B_{X+Y+Z} C_{X+Y+Z}
+
+
+Output
+
+Print the maximum possible total number of coins of all colors he gets.
+
+Examples
+
+Input
+
+1 2 1
+2 4 4
+3 2 1
+7 6 7
+5 2 3
+
+
+Output
+
+18
+
+
+Input
+
+3 3 2
+16 17 1
+2 7 5
+2 16 12
+17 7 7
+13 2 10
+12 18 3
+16 15 19
+5 6 2
+
+
+Output
+
+110
+
+
+Input
+
+6 2 4
+33189 87907 277349742
+71616 46764 575306520
+8801 53151 327161251
+58589 4337 796697686
+66854 17565 289910583
+50598 35195 478112689
+13919 88414 103962455
+7953 69657 699253752
+44255 98144 468443709
+2332 42580 752437097
+39752 19060 845062869
+60126 74101 382963164
+
+
+Output
+
+3093929975</pre><h3>original_code</h3><pre>from heapq import heappushpop
+import sys
+(X, Y, Z) = map(int, sys.stdin.readline().split())
+N = X + Y + Z
+ABC = [list(map(int, sys.stdin.readline().split())) for _ in range(N)]
+ABC.sort(key=lambda x: x[0] - x[1], reverse=True)
+GB = [None] * N
+Q = [a - c for (a, _, c) in ABC[:X]]
+Q.sort()
+gs = sum((a for (a, _, _) in ABC[:X]))
+GB[X - 1] = gs
+for (i, (a, b, c)) in enumerate(ABC[X:X + Z], X):
+	gs += -heappushpop(Q, a - c) + a
+	GB[i] = gs
+SB = [None] * N
+Q = [b - c for (_, b, c) in ABC[X + Z:]]
+Q.sort()
+ss = sum((b for (_, b, _) in ABC[X + Z:]))
+SB[-Y - 1] = ss
+for (i, (a, b, c)) in enumerate(ABC[X + Z - 1:X - 1:-1], 1):
+	i = -Y - i
+	ss += -heappushpop(Q, b - c) + b
+	SB[i - 1] = ss
+print(max((i + j for (i, j) in zip(GB[X - 1:X + Z], SB[X - 1:X + Z]))))
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>1 2 1
+2 4 4
+0 2 1
+7 6 7
+5 2 3</pre><h3>expected</h3><pre>18
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;18\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;13\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;18\n&quot;,
+    &quot;mutant&quot;: &quot;13\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 103 个可用官方案例（原始字段 103 个）。标签状态：unknown。</p></article><article><h2>05c76623-84bc-4a47-88fb-b8d5665a9178</h2><h3>spec</h3><pre>Vasya’s elder brother Petya loves playing computer games. In one of his favourite computer games Petya reached the final level where a fight with the boss take place.
+
+While playing the game Petya found spell scrolls and now he is about to use them. Let’s describe the way fighting goes on this level:
+
+1) The boss has two parameters: max — the initial amount of health and reg — regeneration rate per second.
+
+2) Every scroll also has two parameters: powi — spell power measured in percents — the maximal amount of health counted off the initial one, which allows to use the scroll (i.e. if the boss has more than powi percent of health the scroll cannot be used); and dmgi the damage per second inflicted upon the boss if the scroll is used. As soon as a scroll is used it disappears and another spell is cast upon the boss that inflicts dmgi of damage per second upon him until the end of the game.
+
+During the battle the actions per second are performed in the following order: first the boss gets the damage from all the spells cast upon him, then he regenerates reg of health (at the same time he can’t have more than max of health), then the player may use another scroll (no more than one per second).
+
+The boss is considered to be defeated if at the end of a second he has nonpositive ( ≤ 0) amount of health.
+
+Help Petya to determine whether he can win with the set of scrolls available to him and if he can, determine the minimal number of seconds he needs to do it.
+
+Input
+
+The first line contains three integers N, max and reg (1 ≤ N, max, reg ≤ 1000) –– the amount of scrolls and the parameters of the boss. The next N lines contain two integers powi and dmgi each — the parameters of the i-th scroll (0 ≤ powi ≤ 100, 1 ≤ dmgi ≤ 2000). 
+
+Output
+
+In case Petya can’t complete this level, output in the single line NO.
+
+Otherwise, output on the first line YES. On the second line output the minimal time after which the boss can be defeated and the number of used scrolls. In the next lines for each used scroll output space-separated number of seconds passed from the start of the battle to the moment the scroll was used and the number of the scroll. Scrolls are numbered starting from 1 in the input order. The first scroll is considered to be available to be used after 0 seconds.
+
+Output scrolls in the order they were used. It is not allowed to use scrolls after the boss is defeated.
+
+Examples
+
+Input
+
+2 10 3
+100 3
+99 1
+
+
+Output
+
+NO
+
+
+Input
+
+2 100 10
+100 11
+90 9
+
+
+Output
+
+YES
+19 2
+0 1
+10 2</pre><h3>original_code</h3><pre>class Scroll:
+
+	def __init__(self, id, power, damage):
+		self.id = id
+		self.power = power
+		self.damage = damage
+		self.active = False
+(num_scrolls, boss_max, regenerate) = map(int, input().split())
+scrolls = [Scroll(i + 1, *map(int, input().split())) for i in range(num_scrolls)]
+scrolls.sort(key=lambda scroll: -scroll.damage)
+boss_curr = boss_max
+scroll_damage = 0
+active_scrolls = []
+tick = 0
+while True:
+	boss_prev = boss_curr
+	boss_curr -= scroll_damage
+	boss_curr = min(boss_max, boss_curr + regenerate)
+	if boss_curr &lt;= 0:
+		print(&#x27;YES&#x27;)
+		print(tick, len(active_scrolls))
+		for scroll in active_scrolls:
+			print(scroll.start, scroll.id)
+		break
+	found = False
+	for scroll in scrolls:
+		if not scroll.active and 100 * boss_curr &lt;= scroll.power * boss_max:
+			scroll.start = tick
+			scroll.active = True
+			active_scrolls.append(scroll)
+			scroll_damage += scroll.damage
+			found = True
+			break
+	if not found and boss_curr &gt;= boss_prev:
+		print(&#x27;NO&#x27;)
+		break
+	tick += 1
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>2 1000 1
+100 1
+100 1
+</pre><h3>expected</h3><pre>YES
+1001 2
+0 1
+1 2
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YES\n1001 2\n0 1\n1 2\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YES\n1002 2\n0 1\n1 2\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;YES\n1001 2\n0 1\n1 2\n&quot;,
+    &quot;mutant&quot;: &quot;YES\n1002 2\n0 1\n1 2\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 3 / 80 个可用官方案例（原始字段 80 个）。标签状态：unknown。</p></article><article><h2>7284aa5b-7d55-469b-96c0-2546f89e4e8f</h2><h3>spec</h3><pre>Jerry is a little mouse. He is trying to survive from the cat Tom. Jerry is carrying a parallelepiped-like piece of cheese of size A × B × C. It is necessary to trail this cheese to the Jerry&#x27;s house. There are several entrances in the Jerry&#x27;s house. Each entrance is a rounded hole having its own radius R. Could you help Jerry to find suitable holes to be survive?
+
+Your task is to create a program which estimates whether Jerry can trail the cheese via each hole. The program should print &quot;OK&quot; if Jerry can trail the cheese via the corresponding hole (without touching it). Otherwise the program should print &quot;NA&quot;.
+
+You may assume that the number of holes is less than 10000.
+
+
+
+Input
+
+The input is a sequence of datasets. The end of input is indicated by a line containing three zeros. Each dataset is formatted as follows:
+
+
+A B C
+n
+R1
+R2
+
+.
+.
+Rn
+
+
+n indicates the number of holes (entrances) and Ri indicates the radius of i-th hole.
+
+Output
+
+For each datasets, the output should have n lines. Each line points the result of estimation of the corresponding hole.
+
+Example
+
+Input
+
+10 6 8
+5
+4
+8
+6
+2
+5
+0 0 0
+
+
+Output
+
+NA
+OK
+OK
+NA
+NA</pre><h3>original_code</h3><pre>while True:
+	(d, w, h) = sorted(map(int, input().split()))
+	if d == w == h == 0:
+		break
+	dw = d ** 2 + w ** 2
+	n = int(input())
+	for i in range(n):
+		y = int(input())
+		if (2 * y) ** 2 &gt; dw:
+			print(&#x27;OK&#x27;)
+		else:
+			print(&#x27;NA&#x27;)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>10 6 8
+5
+4
+1
+6
+2
+5
+0 0 0</pre><h3>expected</h3><pre>NA
+NA
+OK
+NA
+NA
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;NA\nNA\nOK\nNA\nNA\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;OK\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;NA\nNA\nOK\nNA\nNA\n&quot;,
+    &quot;mutant&quot;: &quot;OK\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 101 个可用官方案例（原始字段 101 个）。标签状态：unknown。</p></article><article><h2>395fdce4-b7bf-40ee-bcf9-3f515e59511b</h2><h3>spec</h3><pre>Consider sequences \{A_1,...,A_N\} of length N consisting of integers between 1 and K (inclusive).
+There are K^N such sequences. Find the sum of \gcd(A_1, ..., A_N) over all of them.
+Since this sum can be enormous, print the value modulo (10^9+7).
+Here \gcd(A_1, ..., A_N) denotes the greatest common divisor of A_1, ..., A_N.
+
+-----Constraints-----
+ - 2 \leq N \leq 10^5
+ - 1 \leq K \leq 10^5
+ - All values in input are integers.
+
+-----Input-----
+Input is given from Standard Input in the following format:
+N K
+
+-----Output-----
+Print the sum of \gcd(A_1, ..., A_N) over all K^N sequences, modulo (10^9+7).
+
+-----Sample Input-----
+3 2
+
+-----Sample Output-----
+9
+
+\gcd(1,1,1)+\gcd(1,1,2)+\gcd(1,2,1)+\gcd(1,2,2)+\gcd(2,1,1)+\gcd(2,1,2)+\gcd(2,2,1)+\gcd(2,2,2)=1+1+1+1+1+1+1+2=9
+Thus, the answer is 9.</pre><h3>original_code</h3><pre>(N, K) = map(int, input().split())
+D = [0] * (K + 1)
+D[K] = 1
+mod = 10 ** 9 + 7
+for i in range(K, 0, -1):
+	D[i] = pow(K // i, N, mod)
+	for j in range(2 * i, K + 1, i):
+		D[i] = (D[i] - D[j]) % mod
+c = 0
+for i in range(len(D)):
+	c += D[i] * i
+print(c % mod)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>100000 100000
+</pre><h3>expected</h3><pre>742202979
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;742202979\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;914252936\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;742202979\n&quot;,
+    &quot;mutant&quot;: &quot;914252936\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 3 / 127 个可用官方案例（原始字段 127 个）。标签状态：unknown。</p></article><article><h2>bb030813-e9f7-48ea-9122-149a78142184</h2><h3>spec</h3><pre>When Chef was born, his parents took him to the famous monk Doctor Strange to know whether he will land himself in heaven after his life or not. According to Strange, Chef will live for $L$ years in total. If he wants to go to heaven, he must spend at least $50\%$ of his life years doing good deeds. He also shows them his future using a string $S$ of length $L$ where $S_{i} = 0$ means the $i$-th year will be counted as bad as per the rule books of heaven and $S_{i} = 1$ means the $i$-th year will be counted as good.
+
+Also, Strange can use his special powers to make Chef end his life earlier than that planned by god, i.e, he can choose some $L&#x27;$ ($1≤ L&#x27;≤ L$) and make him live for only $L&#x27; $ years. Strange wants Chef to succeed, so if there is any choice of $L&#x27;$ that allows Chef to go to heaven, he will do so.
+
+Tell whether Chef can go to heaven.
+
+------ Input ------
+
+The first line contains an integer $T$, the number of test cases. Then the test cases follow. 
+Each test case contains two lines of input.
+The first line contains a single integer $L$.
+The second line contains a string $S$ of length $L$, consisting of symbols 0 and 1.
+
+------ Output ------
+For each test case, output the answer in a single line: &quot;YES&quot; if Chef can go to heaven and &quot;NO&quot; if not (without quotes).
+
+You may print each character of each string in uppercase or lowercase (for example, the strings &quot;yEs&quot;, &quot;yes&quot;, &quot;Yes&quot; and &quot;YES&quot; will all be treated as identical).
+
+------ Constraints  ------
+$1 ≤ L ≤ 10^{5}$
+The sum of $L$ over all tests does not exceed $10^{6}$
+
+------ Subtasks ------
+
+Subtask #1 (100 points): original constraints
+
+----- Sample Input 1 ------ 
+3
+
+2
+
+10
+
+3
+
+001
+
+4
+
+0100
+----- Sample Output 1 ------ 
+YES
+
+NO
+
+YES
+----- explanation 1 ------ 
+Test case 1: If Chef lives for the complete $2$ years, he will have a total of $1$ good year which is $\frac{1 * 100}{2} = 50\%$ of his life, and hence he will go to heaven.
+
+Test case 2: There&#x27;s no way Chef can go to heaven.
+
+Test case 3: If Chef lives for $2$ years, he will have a total of $1$ good year which is $\frac{1 * 100}{2} = 50\%$ of his life, and hence he will go to heaven.</pre><h3>original_code</h3><pre>for i in range(0, int(input())):
+	n = int(input())
+	l = list(input())
+	t = 0
+	a = 0
+	b = 0
+	for j in range(0, n):
+		t = t + 1
+		if l[j] == &#x27;0&#x27;:
+			a = a + 1
+		else:
+			b = b + 1
+		if b &gt;= t / 2:
+			print(&#x27;YES&#x27;)
+			break
+		elif j == n - 1 and b &lt; t / 2:
+			print(&#x27;NO&#x27;)
+		else:
+			continue
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>3
+2
+10
+3
+001
+4
+0100</pre><h3>expected</h3><pre>YES
+NO
+YES</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YES\nNO\nYES\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YES\nNO\nNO\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;YES\nNO\nYES\n&quot;,
+    &quot;mutant&quot;: &quot;YES\nNO\nNO\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 1 个可用官方案例（原始字段 1 个）。标签状态：unknown。</p></article><article><h2>81f09333-1735-41e6-b1d6-0fbf366e099b</h2><h3>spec</h3><pre>Jerry is a little mouse. He is trying to survive from the cat Tom. Jerry is carrying a parallelepiped-like piece of cheese of size A × B × C. It is necessary to trail this cheese to the Jerry&#x27;s house. There are several entrances in the Jerry&#x27;s house. Each entrance is a rounded hole having its own radius R. Could you help Jerry to find suitable holes to be survive?
+
+Your task is to create a program which estimates whether Jerry can trail the cheese via each hole. The program should print &quot;OK&quot; if Jerry can trail the cheese via the corresponding hole (without touching it). Otherwise the program should print &quot;NA&quot;.
+
+You may assume that the number of holes is less than 10000.
+
+
+
+Input
+
+The input is a sequence of datasets. The end of input is indicated by a line containing three zeros. Each dataset is formatted as follows:
+
+
+A B C
+n
+R1
+R2
+
+.
+.
+Rn
+
+
+n indicates the number of holes (entrances) and Ri indicates the radius of i-th hole.
+
+Output
+
+For each datasets, the output should have n lines. Each line points the result of estimation of the corresponding hole.
+
+Example
+
+Input
+
+10 6 8
+5
+4
+8
+6
+2
+5
+0 0 0
+
+
+Output
+
+NA
+OK
+OK
+NA
+NA</pre><h3>original_code</h3><pre>while True:
+	(d, w, h) = sorted(map(int, input().split()))
+	if d == w == h == 0:
+		break
+	dw = d ** 2 + w ** 2
+	n = int(input())
+	for i in range(n):
+		y = int(input())
+		if (2 * y) ** 2 &gt; dw:
+			print(&#x27;OK&#x27;)
+		else:
+			print(&#x27;NA&#x27;)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>10 6 8
+5
+4
+1
+6
+2
+5
+0 0 0</pre><h3>expected</h3><pre>NA
+NA
+OK
+NA
+NA
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;NA\nNA\nOK\nNA\nNA\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;NA\nNA\nNA\nNA\nNA\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;NA\nNA\nOK\nNA\nNA\n&quot;,
+    &quot;mutant&quot;: &quot;NA\nNA\nNA\nNA\nNA\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 101 个可用官方案例（原始字段 101 个）。标签状态：unknown。</p></article><article><h2>73461646-cffe-467f-9dbf-568005a4daf5</h2><h3>spec</h3><pre>There are X+Y+Z people, conveniently numbered 1 through X+Y+Z. Person i has A_i gold coins, B_i silver coins and C_i bronze coins.
+
+Snuke is thinking of getting gold coins from X of those people, silver coins from Y of the people and bronze coins from Z of the people. It is not possible to get two or more different colors of coins from a single person. On the other hand, a person will give all of his/her coins of the color specified by Snuke.
+
+Snuke would like to maximize the total number of coins of all colors he gets. Find the maximum possible number of coins.
+
+Constraints
+
+* 1 \leq X
+* 1 \leq Y
+* 1 \leq Z
+* X+Y+Z \leq 10^5
+* 1 \leq A_i \leq 10^9
+* 1 \leq B_i \leq 10^9
+* 1 \leq C_i \leq 10^9
+
+Input
+
+Input is given from Standard Input in the following format:
+
+
+X Y Z
+A_1 B_1 C_1
+A_2 B_2 C_2
+:
+A_{X+Y+Z} B_{X+Y+Z} C_{X+Y+Z}
+
+
+Output
+
+Print the maximum possible total number of coins of all colors he gets.
+
+Examples
+
+Input
+
+1 2 1
+2 4 4
+3 2 1
+7 6 7
+5 2 3
+
+
+Output
+
+18
+
+
+Input
+
+3 3 2
+16 17 1
+2 7 5
+2 16 12
+17 7 7
+13 2 10
+12 18 3
+16 15 19
+5 6 2
+
+
+Output
+
+110
+
+
+Input
+
+6 2 4
+33189 87907 277349742
+71616 46764 575306520
+8801 53151 327161251
+58589 4337 796697686
+66854 17565 289910583
+50598 35195 478112689
+13919 88414 103962455
+7953 69657 699253752
+44255 98144 468443709
+2332 42580 752437097
+39752 19060 845062869
+60126 74101 382963164
+
+
+Output
+
+3093929975</pre><h3>original_code</h3><pre>from heapq import heappushpop
+import sys
+(X, Y, Z) = map(int, sys.stdin.readline().split())
+N = X + Y + Z
+ABC = [list(map(int, sys.stdin.readline().split())) for _ in range(N)]
+ABC.sort(key=lambda x: x[0] - x[1], reverse=True)
+GB = [None] * N
+Q = [a - c for (a, _, c) in ABC[:X]]
+Q.sort()
+gs = sum((a for (a, _, _) in ABC[:X]))
+GB[X - 1] = gs
+for (i, (a, b, c)) in enumerate(ABC[X:X + Z], X):
+	gs += -heappushpop(Q, a - c) + a
+	GB[i] = gs
+SB = [None] * N
+Q = [b - c for (_, b, c) in ABC[X + Z:]]
+Q.sort()
+ss = sum((b for (_, b, _) in ABC[X + Z:]))
+SB[-Y - 1] = ss
+for (i, (a, b, c)) in enumerate(ABC[X + Z - 1:X - 1:-1], 1):
+	i = -Y - i
+	ss += -heappushpop(Q, b - c) + b
+	SB[i - 1] = ss
+print(max((i + j for (i, j) in zip(GB[X - 1:X + Z], SB[X - 1:X + Z]))))
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>6 2 4
+33189 87907 277349742
+71616 46764 575306520
+8801 53151 327161251
+58589 4337 796697686
+66854 17565 289910583
+50598 35195 478112689
+13919 88414 103962455
+7953 69657 699253752
+42489 98144 468443709
+2332 42580 752437097
+39752 19060 845062869
+60126 74101 382963164</pre><h3>expected</h3><pre>3093929146
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;3093929146\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;2824140933\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;3093929146\n&quot;,
+    &quot;mutant&quot;: &quot;2824140933\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 2 / 103 个可用官方案例（原始字段 103 个）。标签状态：unknown。</p></article><article><h2>021cdcbf-c8f9-44d7-a060-d96509302e15</h2><h3>spec</h3><pre>Write a method that will search an array of strings for all strings that contain another string, ignoring capitalization. Then return an array of the found strings. 
+
+The method takes two parameters, the query string and the array of strings to search, and returns an array. 
+
+If the string isn&#x27;t contained in any of the strings in the array, the method returns an array containing a single string: &quot;Empty&quot; (or `Nothing` in Haskell, or &quot;None&quot; in Python and C)
+
+### Examples
+If the string to search for is &quot;me&quot;, and the array to search is [&quot;home&quot;, &quot;milk&quot;, &quot;Mercury&quot;, &quot;fish&quot;], the method should return [&quot;home&quot;, &quot;Mercury&quot;].</pre><h3>original_code</h3><pre>def word_search(query, seq):
+	return [x for x in seq if query.lower() in x.lower()] or [&#x27;None&#x27;]
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;word_search&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0,
+    1
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  &quot;ab&quot;,
+  [
+    &quot;za&quot;,
+    &quot;ab&quot;,
+    &quot;abc&quot;,
+    &quot;zab&quot;,
+    &quot;zbc&quot;
+  ]
+]</pre><h3>expected</h3><pre>[
+  &quot;ab&quot;,
+  &quot;abc&quot;,
+  &quot;zab&quot;
+]</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: [
+    &quot;ab&quot;,
+    &quot;abc&quot;,
+    &quot;zab&quot;
+  ],
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: [
+    &quot;None&quot;
+  ],
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: [
+      &quot;ab&quot;,
+      &quot;abc&quot;,
+      &quot;zab&quot;
+    ],
+    &quot;mutant&quot;: [
+      &quot;None&quot;
+    ],
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 1 / 4 个可用官方案例（原始字段 4 个）。标签状态：unknown。</p></article><article><h2>0e38ec2f-0a5c-4c18-b7e3-ad314c8fe51e</h2><h3>spec</h3><pre>There are X+Y+Z people, conveniently numbered 1 through X+Y+Z. Person i has A_i gold coins, B_i silver coins and C_i bronze coins.
+
+Snuke is thinking of getting gold coins from X of those people, silver coins from Y of the people and bronze coins from Z of the people. It is not possible to get two or more different colors of coins from a single person. On the other hand, a person will give all of his/her coins of the color specified by Snuke.
+
+Snuke would like to maximize the total number of coins of all colors he gets. Find the maximum possible number of coins.
+
+Constraints
+
+* 1 \leq X
+* 1 \leq Y
+* 1 \leq Z
+* X+Y+Z \leq 10^5
+* 1 \leq A_i \leq 10^9
+* 1 \leq B_i \leq 10^9
+* 1 \leq C_i \leq 10^9
+
+Input
+
+Input is given from Standard Input in the following format:
+
+
+X Y Z
+A_1 B_1 C_1
+A_2 B_2 C_2
+:
+A_{X+Y+Z} B_{X+Y+Z} C_{X+Y+Z}
+
+
+Output
+
+Print the maximum possible total number of coins of all colors he gets.
+
+Examples
+
+Input
+
+1 2 1
+2 4 4
+3 2 1
+7 6 7
+5 2 3
+
+
+Output
+
+18
+
+
+Input
+
+3 3 2
+16 17 1
+2 7 5
+2 16 12
+17 7 7
+13 2 10
+12 18 3
+16 15 19
+5 6 2
+
+
+Output
+
+110
+
+
+Input
+
+6 2 4
+33189 87907 277349742
+71616 46764 575306520
+8801 53151 327161251
+58589 4337 796697686
+66854 17565 289910583
+50598 35195 478112689
+13919 88414 103962455
+7953 69657 699253752
+44255 98144 468443709
+2332 42580 752437097
+39752 19060 845062869
+60126 74101 382963164
+
+
+Output
+
+3093929975</pre><h3>original_code</h3><pre>from heapq import heappushpop
+import sys
+(X, Y, Z) = map(int, sys.stdin.readline().split())
+N = X + Y + Z
+ABC = [list(map(int, sys.stdin.readline().split())) for _ in range(N)]
+ABC.sort(key=lambda x: x[0] - x[1], reverse=True)
+GB = [None] * N
+Q = [a - c for (a, _, c) in ABC[:X]]
+Q.sort()
+gs = sum((a for (a, _, _) in ABC[:X]))
+GB[X - 1] = gs
+for (i, (a, b, c)) in enumerate(ABC[X:X + Z], X):
+	gs += -heappushpop(Q, a - c) + a
+	GB[i] = gs
+SB = [None] * N
+Q = [b - c for (_, b, c) in ABC[X + Z:]]
+Q.sort()
+ss = sum((b for (_, b, _) in ABC[X + Z:]))
+SB[-Y - 1] = ss
+for (i, (a, b, c)) in enumerate(ABC[X + Z - 1:X - 1:-1], 1):
+	i = -Y - i
+	ss += -heappushpop(Q, b - c) + b
+	SB[i - 1] = ss
+print(max((i + j for (i, j) in zip(GB[X - 1:X + Z], SB[X - 1:X + Z]))))
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>1 2 1
+2 4 4
+0 2 1
+7 6 7
+5 2 3</pre><h3>expected</h3><pre>18
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;18\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;13\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;18\n&quot;,
+    &quot;mutant&quot;: &quot;13\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 103 个可用官方案例（原始字段 103 个）。标签状态：unknown。</p></article><article><h2>1530ea2c-95b0-44da-98a5-e30b303e2256</h2><h3>spec</h3><pre>&lt;image&gt;
+
+Matryoshka is a wooden doll in the shape of a female figure and is a typical Russian folk craft. Matryoshka has a nested structure in which smaller dolls are contained inside a large doll, and is composed of multiple dolls of different sizes. In order to have such a nested structure, the body of each doll has a tubular structure that can be divided into upper and lower parts. Matryoshka dolls are handmade by craftsmen, so each doll is unique and extremely valuable in the world.
+
+Brothers Ichiro and Jiro loved to play with matryoshka dolls, and each had a pair of matryoshka dolls. Ichiro&#x27;s matryoshka is made up of n dolls, and Jiro&#x27;s matryoshka is made up of m dolls.
+
+One day, curious Ichiro wondered if he could combine the dolls contained in these two pairs of matryoshka dolls to create a new matryoshka doll containing more dolls. In other words, I tried to make a pair of matryoshka dolls consisting of k dolls using n + m dolls. If k can be made larger than the larger of n and m, Ichiro&#x27;s purpose will be achieved.
+
+The two brothers got along well and wondered how to combine the dolls to maximize the value of k. But for the two younger ones, the problem is so difficult that you, older, decided to program to help your brothers.
+
+Create a program that inputs the information of the matryoshka dolls of Ichiro and Jiro and outputs the number k of the dolls that the new matryoshka contains. No doll of the same size exists. Also, if we consider a doll to be a cylinder with a height h and a radius r, a doll with a height h and a radius r can contain a doll with a height x radius y that satisfies x &lt;h and y &lt;r.
+
+
+
+Input
+
+A sequence of multiple datasets is given as input. The end of the input is indicated by a single line of zeros. Each dataset is given in the following format:
+
+
+n
+h1 r1
+h2 r2
+::
+hn rn
+m
+h1 r1
+h2 r2
+::
+hm rm
+
+
+The first line gives the number of matryoshka dolls of Ichiro n (n ≤ 100), and the following n lines give the height hi and radius ri (hi, ri &lt;1000) of the ith doll of Ichiro. ..
+
+The following line gives the number of Jiro&#x27;s matryoshka dolls m (m ≤ 100), and the following m lines give the height hi and radius ri (hi, ri &lt;1000) of Jiro&#x27;s i-th doll.
+
+The number of datasets does not exceed 20.
+
+Output
+
+Outputs the number k of dolls that the new matryoshka contains for each input dataset.
+
+Example
+
+Input
+
+6
+1 1
+4 3
+6 5
+8 6
+10 10
+14 14
+5
+2 2
+5 4
+6 6
+9 8
+15 10
+4
+1 1
+4 3
+6 5
+8 6
+3
+2 2
+5 4
+6 6
+4
+1 1
+4 3
+6 5
+8 6
+4
+10 10
+12 11
+18 15
+24 20
+0
+
+
+Output
+
+9
+6
+8</pre><h3>original_code</h3><pre>while True:
+	n = int(input())
+	if n == 0:
+		break
+	dolls = []
+	for i in range(n):
+		(h, r) = [int(j) for j in input().split(&#x27; &#x27;)]
+		dolls.append((h, r))
+	m = int(input())
+	for j in range(m):
+		(h, r) = [int(j) for j in input().split(&#x27; &#x27;)]
+		dolls.append((h, r))
+	dolls = sorted(dolls, key=lambda w: (w[0], -1 * w[1]))
+	r = [i[1] for i in dolls]
+	table = [1 for i in range(len(r))]
+	for i in range(len(r)):
+		for j in range(i):
+			if r[j] &lt; r[i]:
+				table[i] = max(table[i], table[j] + 1)
+	print(max(table))
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>6
+1 1
+4 3
+6 5
+8 6
+10 10
+14 14
+5
+2 1
+5 4
+6 6
+9 8
+15 10
+4
+1 1
+4 3
+6 5
+8 6
+3
+2 2
+5 4
+6 6
+4
+1 1
+4 3
+6 5
+8 6
+4
+10 10
+12 11
+18 15
+24 20
+0</pre><h3>expected</h3><pre>8
+6
+8
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;8\n6\n8\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;9\n6\n8\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;8\n6\n8\n&quot;,
+    &quot;mutant&quot;: &quot;9\n6\n8\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 101 个可用官方案例（原始字段 101 个）。标签状态：unknown。</p></article><article><h2>cf43b558-0bf0-4e2f-8bfe-987f5f2522d5</h2><h3>spec</h3><pre>John is new to Mathematics and does not know how to calculate GCD of numbers. So he wants you to help him in a few GCD calculations. John has a list A of numbers, indexed 1 to N. He wants to create another list B having N+1 numbers, indexed from 1 to N+1, and having the following property:
+
+GCD(B[i], B[i+1]) = A[i],  ∀ 1  ≤ i  ≤ N
+
+As there can be many such lists, John wants to know the list B in which sum of all elements is minimum. It is guaranteed that such a list will always exist.
+
+Input Format 
+
+The first line contains an integer T, i.e., the number of the test cases. T testcases follow. 
+
+The first line of each test case contains an integer N, i.e., the number of elements in the array. 
+
+The second line of each test case contains N space separated integers that  denote the elements of the list A.  
+
+Output Format 
+
+For each test case, print in a new line the list B such that each element is separated by a single space. 
+
+Constraints 
+
+1 ≤ T ≤ 10 
+
+2 ≤ N ≤ 10^{3} 
+
+1 ≤ A[i] ≤ 10^{4} 
+
+1 ≤ B[i]  
+
+Sample Input  
+
+2
+3
+1 2 3
+3
+5 10 5
+
+Sample Output  
+
+1 2 6 3
+5 10 10 5
+
+Explanation  
+
+For the first testcase, 
+
+ GCD(1,2) = 1
+ GCD(2,6) = 2
+ GCD(6,3) = 3
+ sum = 1+2+6+3 = 12 which is minimum among all possible list B
+
+For the second testcase, 
+
+GCD(5, 10) = 5
+GCD(10, 10) = 10
+GCD(10, 5) = 5
+sum = 5 + 10 + 10 + 5 = 30 which is the minimum among all possible list B</pre><h3>original_code</h3><pre>def gcd(a, b):
+	return a if b == 0 else gcd(b, a % b)
+
+def lcm(a, b):
+	return a * b // gcd(a, b)
+for _ in range(int(input())):
+	n = int(input())
+	(a, ret) = ([1] + list(map(int, input().split())) + [1], &#x27;&#x27;)
+	for i in range(1, n + 2):
+		ret += str(lcm(a[i], a[i - 1])) + &#x27; &#x27;
+	print(ret)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>2
+3
+1 2 3
+3
+5 10 5
+</pre><h3>expected</h3><pre>1 2 6 3
+5 10 10 5
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;1 2 6 3 \n5 10 10 5 \n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;1 1 2 3 \n1 5 10 5 \n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;1 2 6 3 \n5 10 10 5 \n&quot;,
+    &quot;mutant&quot;: &quot;1 1 2 3 \n1 5 10 5 \n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 1 个可用官方案例（原始字段 1 个）。标签状态：unknown。</p></article><article><h2>2ef6a561-9a63-4a12-ab37-e6b78febe0db</h2><h3>spec</h3><pre>Vasya’s elder brother Petya loves playing computer games. In one of his favourite computer games Petya reached the final level where a fight with the boss take place.
+
+While playing the game Petya found spell scrolls and now he is about to use them. Let’s describe the way fighting goes on this level:
+
+1) The boss has two parameters: max — the initial amount of health and reg — regeneration rate per second.
+
+2) Every scroll also has two parameters: powi — spell power measured in percents — the maximal amount of health counted off the initial one, which allows to use the scroll (i.e. if the boss has more than powi percent of health the scroll cannot be used); and dmgi the damage per second inflicted upon the boss if the scroll is used. As soon as a scroll is used it disappears and another spell is cast upon the boss that inflicts dmgi of damage per second upon him until the end of the game.
+
+During the battle the actions per second are performed in the following order: first the boss gets the damage from all the spells cast upon him, then he regenerates reg of health (at the same time he can’t have more than max of health), then the player may use another scroll (no more than one per second).
+
+The boss is considered to be defeated if at the end of a second he has nonpositive ( ≤ 0) amount of health.
+
+Help Petya to determine whether he can win with the set of scrolls available to him and if he can, determine the minimal number of seconds he needs to do it.
+
+Input
+
+The first line contains three integers N, max and reg (1 ≤ N, max, reg ≤ 1000) –– the amount of scrolls and the parameters of the boss. The next N lines contain two integers powi and dmgi each — the parameters of the i-th scroll (0 ≤ powi ≤ 100, 1 ≤ dmgi ≤ 2000). 
+
+Output
+
+In case Petya can’t complete this level, output in the single line NO.
+
+Otherwise, output on the first line YES. On the second line output the minimal time after which the boss can be defeated and the number of used scrolls. In the next lines for each used scroll output space-separated number of seconds passed from the start of the battle to the moment the scroll was used and the number of the scroll. Scrolls are numbered starting from 1 in the input order. The first scroll is considered to be available to be used after 0 seconds.
+
+Output scrolls in the order they were used. It is not allowed to use scrolls after the boss is defeated.
+
+Examples
+
+Input
+
+2 10 3
+100 3
+99 1
+
+
+Output
+
+NO
+
+
+Input
+
+2 100 10
+100 11
+90 9
+
+
+Output
+
+YES
+19 2
+0 1
+10 2</pre><h3>original_code</h3><pre>class Scroll:
+
+	def __init__(self, id, power, damage):
+		self.id = id
+		self.power = power
+		self.damage = damage
+		self.active = False
+(num_scrolls, boss_max, regenerate) = map(int, input().split())
+scrolls = [Scroll(i + 1, *map(int, input().split())) for i in range(num_scrolls)]
+scrolls.sort(key=lambda scroll: -scroll.damage)
+boss_curr = boss_max
+scroll_damage = 0
+active_scrolls = []
+tick = 0
+while True:
+	boss_prev = boss_curr
+	boss_curr -= scroll_damage
+	boss_curr = min(boss_max, boss_curr + regenerate)
+	if boss_curr &lt;= 0:
+		print(&#x27;YES&#x27;)
+		print(tick, len(active_scrolls))
+		for scroll in active_scrolls:
+			print(scroll.start, scroll.id)
+		break
+	found = False
+	for scroll in scrolls:
+		if not scroll.active and 100 * boss_curr &lt;= scroll.power * boss_max:
+			scroll.start = tick
+			scroll.active = True
+			active_scrolls.append(scroll)
+			scroll_damage += scroll.damage
+			found = True
+			break
+	if not found and boss_curr &gt;= boss_prev:
+		print(&#x27;NO&#x27;)
+		break
+	tick += 1
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>2 1000 1
+100 1
+100 1
+</pre><h3>expected</h3><pre>YES
+1001 2
+0 1
+1 2
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YES\n1001 2\n0 1\n1 2\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;NO\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;YES\n1001 2\n0 1\n1 2\n&quot;,
+    &quot;mutant&quot;: &quot;NO\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 3 / 80 个可用官方案例（原始字段 80 个）。标签状态：unknown。</p></article><article><h2>b5c8cf07-9f97-4293-8854-06b772505bce</h2><h3>spec</h3><pre>When Chef was born, his parents took him to the famous monk Doctor Strange to know whether he will land himself in heaven after his life or not. According to Strange, Chef will live for $L$ years in total. If he wants to go to heaven, he must spend at least $50\%$ of his life years doing good deeds. He also shows them his future using a string $S$ of length $L$ where $S_{i} = 0$ means the $i$-th year will be counted as bad as per the rule books of heaven and $S_{i} = 1$ means the $i$-th year will be counted as good.
+
+Also, Strange can use his special powers to make Chef end his life earlier than that planned by god, i.e, he can choose some $L&#x27;$ ($1≤ L&#x27;≤ L$) and make him live for only $L&#x27; $ years. Strange wants Chef to succeed, so if there is any choice of $L&#x27;$ that allows Chef to go to heaven, he will do so.
+
+Tell whether Chef can go to heaven.
+
+------ Input ------
+
+The first line contains an integer $T$, the number of test cases. Then the test cases follow. 
+Each test case contains two lines of input.
+The first line contains a single integer $L$.
+The second line contains a string $S$ of length $L$, consisting of symbols 0 and 1.
+
+------ Output ------
+For each test case, output the answer in a single line: &quot;YES&quot; if Chef can go to heaven and &quot;NO&quot; if not (without quotes).
+
+You may print each character of each string in uppercase or lowercase (for example, the strings &quot;yEs&quot;, &quot;yes&quot;, &quot;Yes&quot; and &quot;YES&quot; will all be treated as identical).
+
+------ Constraints  ------
+$1 ≤ L ≤ 10^{5}$
+The sum of $L$ over all tests does not exceed $10^{6}$
+
+------ Subtasks ------
+
+Subtask #1 (100 points): original constraints
+
+----- Sample Input 1 ------ 
+3
+
+2
+
+10
+
+3
+
+001
+
+4
+
+0100
+----- Sample Output 1 ------ 
+YES
+
+NO
+
+YES
+----- explanation 1 ------ 
+Test case 1: If Chef lives for the complete $2$ years, he will have a total of $1$ good year which is $\frac{1 * 100}{2} = 50\%$ of his life, and hence he will go to heaven.
+
+Test case 2: There&#x27;s no way Chef can go to heaven.
+
+Test case 3: If Chef lives for $2$ years, he will have a total of $1$ good year which is $\frac{1 * 100}{2} = 50\%$ of his life, and hence he will go to heaven.</pre><h3>original_code</h3><pre>for i in range(0, int(input())):
+	n = int(input())
+	l = list(input())
+	t = 0
+	a = 0
+	b = 0
+	for j in range(0, n):
+		t = t + 1
+		if l[j] == &#x27;0&#x27;:
+			a = a + 1
+		else:
+			b = b + 1
+		if b &gt;= t / 2:
+			print(&#x27;YES&#x27;)
+			break
+		elif j == n - 1 and b &lt; t / 2:
+			print(&#x27;NO&#x27;)
+		else:
+			continue
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>3
+2
+10
+3
+001
+4
+0100</pre><h3>expected</h3><pre>YES
+NO
+YES</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YES\nNO\nYES\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YES\nYES\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;YES\nNO\nYES\n&quot;,
+    &quot;mutant&quot;: &quot;YES\nYES\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 1 个可用官方案例（原始字段 1 个）。标签状态：unknown。</p></article><article><h2>42f0bbb0-09a8-4a08-88d9-2fba6a9bb37d</h2><h3>spec</h3><pre>Write a method that will search an array of strings for all strings that contain another string, ignoring capitalization. Then return an array of the found strings. 
+
+The method takes two parameters, the query string and the array of strings to search, and returns an array. 
+
+If the string isn&#x27;t contained in any of the strings in the array, the method returns an array containing a single string: &quot;Empty&quot; (or `Nothing` in Haskell, or &quot;None&quot; in Python and C)
+
+### Examples
+If the string to search for is &quot;me&quot;, and the array to search is [&quot;home&quot;, &quot;milk&quot;, &quot;Mercury&quot;, &quot;fish&quot;], the method should return [&quot;home&quot;, &quot;Mercury&quot;].</pre><h3>original_code</h3><pre>def word_search(query, seq):
+	return [x for x in seq if query.lower() in x.lower()] or [&#x27;None&#x27;]
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;word_search&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0,
+    1
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  &quot;ab&quot;,
+  [
+    &quot;za&quot;,
+    &quot;ab&quot;,
+    &quot;abc&quot;,
+    &quot;zab&quot;,
+    &quot;zbc&quot;
+  ]
+]</pre><h3>expected</h3><pre>[
+  &quot;ab&quot;,
+  &quot;abc&quot;,
+  &quot;zab&quot;
+]</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: [
+    &quot;ab&quot;,
+    &quot;abc&quot;,
+    &quot;zab&quot;
+  ],
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: null,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: [
+      &quot;ab&quot;,
+      &quot;abc&quot;,
+      &quot;zab&quot;
+    ],
+    &quot;mutant&quot;: null,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 1 / 4 个可用官方案例（原始字段 4 个）。标签状态：unknown。</p></article><article><h2>50a0ed09-7b45-4308-aeef-6e9b5b6bb15a</h2><h3>spec</h3><pre>&lt;image&gt;
+
+Matryoshka is a wooden doll in the shape of a female figure and is a typical Russian folk craft. Matryoshka has a nested structure in which smaller dolls are contained inside a large doll, and is composed of multiple dolls of different sizes. In order to have such a nested structure, the body of each doll has a tubular structure that can be divided into upper and lower parts. Matryoshka dolls are handmade by craftsmen, so each doll is unique and extremely valuable in the world.
+
+Brothers Ichiro and Jiro loved to play with matryoshka dolls, and each had a pair of matryoshka dolls. Ichiro&#x27;s matryoshka is made up of n dolls, and Jiro&#x27;s matryoshka is made up of m dolls.
+
+One day, curious Ichiro wondered if he could combine the dolls contained in these two pairs of matryoshka dolls to create a new matryoshka doll containing more dolls. In other words, I tried to make a pair of matryoshka dolls consisting of k dolls using n + m dolls. If k can be made larger than the larger of n and m, Ichiro&#x27;s purpose will be achieved.
+
+The two brothers got along well and wondered how to combine the dolls to maximize the value of k. But for the two younger ones, the problem is so difficult that you, older, decided to program to help your brothers.
+
+Create a program that inputs the information of the matryoshka dolls of Ichiro and Jiro and outputs the number k of the dolls that the new matryoshka contains. No doll of the same size exists. Also, if we consider a doll to be a cylinder with a height h and a radius r, a doll with a height h and a radius r can contain a doll with a height x radius y that satisfies x &lt;h and y &lt;r.
+
+
+
+Input
+
+A sequence of multiple datasets is given as input. The end of the input is indicated by a single line of zeros. Each dataset is given in the following format:
+
+
+n
+h1 r1
+h2 r2
+::
+hn rn
+m
+h1 r1
+h2 r2
+::
+hm rm
+
+
+The first line gives the number of matryoshka dolls of Ichiro n (n ≤ 100), and the following n lines give the height hi and radius ri (hi, ri &lt;1000) of the ith doll of Ichiro. ..
+
+The following line gives the number of Jiro&#x27;s matryoshka dolls m (m ≤ 100), and the following m lines give the height hi and radius ri (hi, ri &lt;1000) of Jiro&#x27;s i-th doll.
+
+The number of datasets does not exceed 20.
+
+Output
+
+Outputs the number k of dolls that the new matryoshka contains for each input dataset.
+
+Example
+
+Input
+
+6
+1 1
+4 3
+6 5
+8 6
+10 10
+14 14
+5
+2 2
+5 4
+6 6
+9 8
+15 10
+4
+1 1
+4 3
+6 5
+8 6
+3
+2 2
+5 4
+6 6
+4
+1 1
+4 3
+6 5
+8 6
+4
+10 10
+12 11
+18 15
+24 20
+0
+
+
+Output
+
+9
+6
+8</pre><h3>original_code</h3><pre>while True:
+	n = int(input())
+	if n == 0:
+		break
+	dolls = []
+	for i in range(n):
+		(h, r) = [int(j) for j in input().split(&#x27; &#x27;)]
+		dolls.append((h, r))
+	m = int(input())
+	for j in range(m):
+		(h, r) = [int(j) for j in input().split(&#x27; &#x27;)]
+		dolls.append((h, r))
+	dolls = sorted(dolls, key=lambda w: (w[0], -1 * w[1]))
+	r = [i[1] for i in dolls]
+	table = [1 for i in range(len(r))]
+	for i in range(len(r)):
+		for j in range(i):
+			if r[j] &lt; r[i]:
+				table[i] = max(table[i], table[j] + 1)
+	print(max(table))
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>6
+1 1
+4 3
+6 5
+8 6
+10 10
+14 14
+5
+2 1
+5 4
+6 6
+9 8
+15 10
+4
+1 1
+4 3
+6 5
+8 6
+3
+2 2
+5 4
+6 6
+4
+1 1
+4 3
+6 5
+8 6
+4
+10 10
+12 11
+18 15
+24 20
+0</pre><h3>expected</h3><pre>8
+6
+8
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;8\n6\n8\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;2\n2\n1\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;8\n6\n8\n&quot;,
+    &quot;mutant&quot;: &quot;2\n2\n1\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 101 个可用官方案例（原始字段 101 个）。标签状态：unknown。</p></article><article><h2>ecd7b4c9-5296-446b-aa40-cf2224c645db</h2><h3>spec</h3><pre>There are two $n$-element arrays of integers, $A$ and $B$. Permute them into some $A^{\prime}$ and $B^{\prime}$ such that the relation $A^{\prime}[i]+B^{\prime}[i]\ge k$ holds for all $i$ where $0\leq i&lt;n$. 
+
+There will be $q$ queries consisting of $A$, $B$, and $k$. For each query, return YES if some permutation $A^{\prime}$ , $B^{\prime}$  satisfying the relation exists.  Otherwise, return NO. 
+
+Example 
+
+$A=[0,1]$ 
+
+$B=[0,2]$ 
+
+$k=1$   
+
+A valid $A^{\prime}$,$B^{\prime}$ is $A^{\prime}=[1,0]$and $B^{\prime}=[0,2]$:$1+0\geq1$  and $0+2\geq1$.  Return YES.
+
+Function Description  
+
+Complete the twoArrays function in the editor below.  It should return a string, either YES or NO.  
+
+twoArrays has the following parameter(s):  
+
+int k: an integer  
+int A[n]: an array of integers  
+int B[n]: an array of integers   
+
+Returns 
+
+- string: either YES or NO  
+
+Input Format
+
+The first line contains an integer $q$, the number of queries. 
+
+The next $q$ sets of $3$ lines are as follows:
+
+The first line contains two space-separated integers $n$ and $k$, the size of both arrays $A$ and $B$, and the relation variable.
+The second line contains $n$ space-separated integers $A[i]$.
+The third line contains $n$ space-separated integers $B[i]$.
+
+Constraints
+
+$1\leq q\leq10$
+$1\leq n\leq1000$
+$1\leq k\leq10^9$
+$0\le A[i],B[i]\le10^9$
+
+Sample Input
+STDIN       Function
+-----       --------
+2           q = 2
+3 10        A[] and B[] size n = 3, k = 10
+2 1 3       A = [2, 1, 3]
+7 8 9       B = [7, 8, 9]
+4 5         A[] and B[] size n = 4, k = 5
+1 2 2 1     A = [1, 2, 2, 1]
+3 3 3 4     B = [3, 3, 3, 4]
+
+Sample Output
+YES
+NO
+
+Explanation
+
+There are two queries:
+
+Permute these into $A^{\prime}=[1,2,3] $and $B^{\prime}=[9,8,7] $ so that the following statements are true:
+
+$A[0]+B[1]=1+9=10\ge k$      
+$A[1]+B[1]=2+8=10\ge k$
+$A[2]+B[2]=3+7=10\geq k$  
+
+$A=[1,2,2,1]$, $B=[3,3,34]$, and $k=5$. To permute $A$ and $B$ into a valid $A^{\prime}$ and $B^{\prime}$, there must be at least three numbers in $A$ that are greater than $1$.</pre><h3>original_code</h3><pre>def isGood(listA, listB, k):
+	n = len(listA)
+	listA.sort()
+	listB.sort(reverse=True)
+	for i in range(n):
+		if listA[i] + listB[i] &lt; k:
+			return False
+	return True
+T = int(input().strip())
+for i in range(T):
+	[n, k] = [int(x) for x in input().strip().split()]
+	listA = [int(x) for x in input().strip().split()]
+	listB = [int(x) for x in input().strip().split()]
+	if isGood(listA, listB, k):
+		print(&#x27;YES&#x27;)
+	else:
+		print(&#x27;NO&#x27;)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>2
+3 10
+2 1 3
+7 8 9
+4 5
+1 2 2 1
+3 3 3 4
+</pre><h3>expected</h3><pre>YES
+NO
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YES\nNO\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;NO\nYES\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;YES\nNO\n&quot;,
+    &quot;mutant&quot;: &quot;NO\nYES\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 1 个可用官方案例（原始字段 1 个）。标签状态：unknown。</p></article><article><h2>8bf8447b-665e-43e8-a4e1-b3b47284f13f</h2><h3>spec</h3><pre>A string of &#x27;0&#x27;s and &#x27;1&#x27;s is monotone increasing if it consists of some number of &#x27;0&#x27;s (possibly 0), followed by some number of &#x27;1&#x27;s (also possibly 0.)
+We are given a string S of &#x27;0&#x27;s and &#x27;1&#x27;s, and we may flip any &#x27;0&#x27; to a &#x27;1&#x27; or a &#x27;1&#x27; to a &#x27;0&#x27;.
+Return the minimum number of flips to make S monotone increasing.
+ 
+
+Example 1:
+Input: &quot;00110&quot;
+Output: 1
+Explanation: We flip the last digit to get 00111.
+
+
+Example 2:
+Input: &quot;010110&quot;
+Output: 2
+Explanation: We flip to get 011111, or alternatively 000111.
+
+
+Example 3:
+Input: &quot;00011000&quot;
+Output: 2
+Explanation: We flip to get 00000000.
+
+ 
+Note:
+
+1 &lt;= S.length &lt;= 20000
+S only consists of &#x27;0&#x27; and &#x27;1&#x27; characters.</pre><h3>original_code</h3><pre>class Solution:
+
+	def minFlipsMonoIncr(self, S: str) -&gt; int:
+		onesSoFar = 0
+		partial = 0
+		for n in S:
+			if n == &#x27;0&#x27;:
+				partial = min(onesSoFar, partial + 1)
+			else:
+				onesSoFar += 1
+		return partial
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;minFlipsMonoIncr&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0
+  ],
+  &quot;target&quot;: &quot;solution_method&quot;
+}</pre><h3>input</h3><pre>[
+  &quot;\&quot;00110\&quot;&quot;
+]</pre><h3>expected</h3><pre>2</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 2,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 3,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: 2,
+    &quot;mutant&quot;: 3,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 1 / 1 个可用官方案例（原始字段 1 个）。标签状态：unknown。</p></article><article><h2>1ee19a87-f59d-4ef4-b998-6e879ec8dc0e</h2><h3>spec</h3><pre>Write a function that takes an array/list of numbers and returns a number such that 
+
+Explanation
+total([1,2,3,4,5]) =&gt; 48
+
+1+2=3--\ 3+5 =&gt;     8 \
+2+3=5--/ \            ==  8+12=&gt;20\     
+          ==&gt;5+7=&gt; 12 / \           20+28 =&gt; 48
+3+4=7--\ /            == 12+16=&gt;28/
+4+5=9--/ 7+9 =&gt;     16  /
+
+
+if total([1,2,3]) =&gt; 8 then 
+
+
+first+second =&gt; 3 \
+                   then 3+5 =&gt; 8
+second+third =&gt; 5 /
+
+
+### Examples
+```python
+total([-1,-1,-1]) =&gt; -4
+total([1,2,3,4])  =&gt; 20
+```
+
+**Note:** each array/list will have at least an element and all elements will be valid numbers.</pre><h3>original_code</h3><pre>def total(arr):
+	while len(arr) &gt; 1:
+		arr = [x + y for (x, y) in zip(arr, arr[1:])]
+	return arr[0]
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;total&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
+]</pre><h3>expected</h3><pre>48</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 48,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 1,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: 48,
+    &quot;mutant&quot;: 1,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 1 / 9 个可用官方案例（原始字段 9 个）。标签状态：unknown。</p></article><article><h2>8d739706-e35a-44ca-9fcb-fb4640a3ecf5</h2><h3>spec</h3><pre>John is new to Mathematics and does not know how to calculate GCD of numbers. So he wants you to help him in a few GCD calculations. John has a list A of numbers, indexed 1 to N. He wants to create another list B having N+1 numbers, indexed from 1 to N+1, and having the following property:
+
+GCD(B[i], B[i+1]) = A[i],  ∀ 1  ≤ i  ≤ N
+
+As there can be many such lists, John wants to know the list B in which sum of all elements is minimum. It is guaranteed that such a list will always exist.
+
+Input Format 
+
+The first line contains an integer T, i.e., the number of the test cases. T testcases follow. 
+
+The first line of each test case contains an integer N, i.e., the number of elements in the array. 
+
+The second line of each test case contains N space separated integers that  denote the elements of the list A.  
+
+Output Format 
+
+For each test case, print in a new line the list B such that each element is separated by a single space. 
+
+Constraints 
+
+1 ≤ T ≤ 10 
+
+2 ≤ N ≤ 10^{3} 
+
+1 ≤ A[i] ≤ 10^{4} 
+
+1 ≤ B[i]  
+
+Sample Input  
+
+2
+3
+1 2 3
+3
+5 10 5
+
+Sample Output  
+
+1 2 6 3
+5 10 10 5
+
+Explanation  
+
+For the first testcase, 
+
+ GCD(1,2) = 1
+ GCD(2,6) = 2
+ GCD(6,3) = 3
+ sum = 1+2+6+3 = 12 which is minimum among all possible list B
+
+For the second testcase, 
+
+GCD(5, 10) = 5
+GCD(10, 10) = 10
+GCD(10, 5) = 5
+sum = 5 + 10 + 10 + 5 = 30 which is the minimum among all possible list B</pre><h3>original_code</h3><pre>def gcd(a, b):
+	return a if b == 0 else gcd(b, a % b)
+
+def lcm(a, b):
+	return a * b // gcd(a, b)
+for _ in range(int(input())):
+	n = int(input())
+	(a, ret) = ([1] + list(map(int, input().split())) + [1], &#x27;&#x27;)
+	for i in range(1, n + 2):
+		ret += str(lcm(a[i], a[i - 1])) + &#x27; &#x27;
+	print(ret)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>2
+3
+1 2 3
+3
+5 10 5
+</pre><h3>expected</h3><pre>1 2 6 3
+5 10 10 5
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;1 2 6 3 \n5 10 10 5 \n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;1 2 1 0 \n5 0 0 0 \n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;1 2 6 3 \n5 10 10 5 \n&quot;,
+    &quot;mutant&quot;: &quot;1 2 1 0 \n5 0 0 0 \n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 1 个可用官方案例（原始字段 1 个）。标签状态：unknown。</p></article><article><h2>5a273e6a-909b-4b10-9580-31698d2b0abc</h2><h3>spec</h3><pre>Implement a function called makeAcronym that returns the first letters of each word in a passed in string.
+
+Make sure the letters returned are uppercase.
+
+If the value passed in is not a string return &#x27;Not a string&#x27;.
+
+If the value passed in is a string which contains characters other than spaces and alphabet letters, return &#x27;Not letters&#x27;.
+
+If the string is empty, just return the string itself: &quot;&quot;.
+
+**EXAMPLES:**
+```
+&#x27;Hello codewarrior&#x27; -&gt; &#x27;HC&#x27;
+
+&#x27;a42&#x27; -&gt; &#x27;Not letters&#x27;
+
+42 -&gt; &#x27;Not a string&#x27;
+
+[2,12] -&gt; &#x27;Not a string&#x27;
+
+{name: &#x27;Abraham&#x27;} -&gt; &#x27;Not a string&#x27;
+```</pre><h3>original_code</h3><pre>def make_acronym(phrase):
+	try:
+		return &#x27;&#x27;.join((word[0].upper() if word.isalpha() else 0 for word in phrase.split()))
+	except AttributeError:
+		return &#x27;Not a string&#x27;
+	except TypeError:
+		return &#x27;Not letters&#x27;
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;make_acronym&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  64
+]</pre><h3>expected</h3><pre>Not a string</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;Not a string&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: null,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;Not a string&quot;,
+    &quot;mutant&quot;: null,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 7 / 10 个可用官方案例（原始字段 10 个）。标签状态：unknown。</p></article><article><h2>40650f39-1c37-4437-b4ac-66c64b542909</h2><h3>spec</h3><pre>Implement a function called makeAcronym that returns the first letters of each word in a passed in string.
+
+Make sure the letters returned are uppercase.
+
+If the value passed in is not a string return &#x27;Not a string&#x27;.
+
+If the value passed in is a string which contains characters other than spaces and alphabet letters, return &#x27;Not letters&#x27;.
+
+If the string is empty, just return the string itself: &quot;&quot;.
+
+**EXAMPLES:**
+```
+&#x27;Hello codewarrior&#x27; -&gt; &#x27;HC&#x27;
+
+&#x27;a42&#x27; -&gt; &#x27;Not letters&#x27;
+
+42 -&gt; &#x27;Not a string&#x27;
+
+[2,12] -&gt; &#x27;Not a string&#x27;
+
+{name: &#x27;Abraham&#x27;} -&gt; &#x27;Not a string&#x27;
+```</pre><h3>original_code</h3><pre>def make_acronym(phrase):
+	try:
+		return &#x27;&#x27;.join((word[0].upper() if word.isalpha() else 0 for word in phrase.split()))
+	except AttributeError:
+		return &#x27;Not a string&#x27;
+	except TypeError:
+		return &#x27;Not letters&#x27;
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;make_acronym&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  &quot;My aunt sally&quot;
+]</pre><h3>expected</h3><pre>MAS</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;MAS&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YUA&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;MAS&quot;,
+    &quot;mutant&quot;: &quot;YUA&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 1 / 10 个可用官方案例（原始字段 10 个）。标签状态：unknown。</p></article><article><h2>4146318e-1fb1-4a29-adfb-6b0742f35804</h2><h3>spec</h3><pre>There are two $n$-element arrays of integers, $A$ and $B$. Permute them into some $A^{\prime}$ and $B^{\prime}$ such that the relation $A^{\prime}[i]+B^{\prime}[i]\ge k$ holds for all $i$ where $0\leq i&lt;n$. 
+
+There will be $q$ queries consisting of $A$, $B$, and $k$. For each query, return YES if some permutation $A^{\prime}$ , $B^{\prime}$  satisfying the relation exists.  Otherwise, return NO. 
+
+Example 
+
+$A=[0,1]$ 
+
+$B=[0,2]$ 
+
+$k=1$   
+
+A valid $A^{\prime}$,$B^{\prime}$ is $A^{\prime}=[1,0]$and $B^{\prime}=[0,2]$:$1+0\geq1$  and $0+2\geq1$.  Return YES.
+
+Function Description  
+
+Complete the twoArrays function in the editor below.  It should return a string, either YES or NO.  
+
+twoArrays has the following parameter(s):  
+
+int k: an integer  
+int A[n]: an array of integers  
+int B[n]: an array of integers   
+
+Returns 
+
+- string: either YES or NO  
+
+Input Format
+
+The first line contains an integer $q$, the number of queries. 
+
+The next $q$ sets of $3$ lines are as follows:
+
+The first line contains two space-separated integers $n$ and $k$, the size of both arrays $A$ and $B$, and the relation variable.
+The second line contains $n$ space-separated integers $A[i]$.
+The third line contains $n$ space-separated integers $B[i]$.
+
+Constraints
+
+$1\leq q\leq10$
+$1\leq n\leq1000$
+$1\leq k\leq10^9$
+$0\le A[i],B[i]\le10^9$
+
+Sample Input
+STDIN       Function
+-----       --------
+2           q = 2
+3 10        A[] and B[] size n = 3, k = 10
+2 1 3       A = [2, 1, 3]
+7 8 9       B = [7, 8, 9]
+4 5         A[] and B[] size n = 4, k = 5
+1 2 2 1     A = [1, 2, 2, 1]
+3 3 3 4     B = [3, 3, 3, 4]
+
+Sample Output
+YES
+NO
+
+Explanation
+
+There are two queries:
+
+Permute these into $A^{\prime}=[1,2,3] $and $B^{\prime}=[9,8,7] $ so that the following statements are true:
+
+$A[0]+B[1]=1+9=10\ge k$      
+$A[1]+B[1]=2+8=10\ge k$
+$A[2]+B[2]=3+7=10\geq k$  
+
+$A=[1,2,2,1]$, $B=[3,3,34]$, and $k=5$. To permute $A$ and $B$ into a valid $A^{\prime}$ and $B^{\prime}$, there must be at least three numbers in $A$ that are greater than $1$.</pre><h3>original_code</h3><pre>def isGood(listA, listB, k):
+	n = len(listA)
+	listA.sort()
+	listB.sort(reverse=True)
+	for i in range(n):
+		if listA[i] + listB[i] &lt; k:
+			return False
+	return True
+T = int(input().strip())
+for i in range(T):
+	[n, k] = [int(x) for x in input().strip().split()]
+	listA = [int(x) for x in input().strip().split()]
+	listB = [int(x) for x in input().strip().split()]
+	if isGood(listA, listB, k):
+		print(&#x27;YES&#x27;)
+	else:
+		print(&#x27;NO&#x27;)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>2
+3 10
+2 1 3
+7 8 9
+4 5
+1 2 2 1
+3 3 3 4
+</pre><h3>expected</h3><pre>YES
+NO
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YES\nNO\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;NO\nNO\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;YES\nNO\n&quot;,
+    &quot;mutant&quot;: &quot;NO\nNO\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 1 个可用官方案例（原始字段 1 个）。标签状态：unknown。</p></article><article><h2>12b2387b-fe5b-498c-9698-39c2884bc5a1</h2><h3>spec</h3><pre>Write a function that takes an array/list of numbers and returns a number such that 
+
+Explanation
+total([1,2,3,4,5]) =&gt; 48
+
+1+2=3--\ 3+5 =&gt;     8 \
+2+3=5--/ \            ==  8+12=&gt;20\     
+          ==&gt;5+7=&gt; 12 / \           20+28 =&gt; 48
+3+4=7--\ /            == 12+16=&gt;28/
+4+5=9--/ 7+9 =&gt;     16  /
+
+
+if total([1,2,3]) =&gt; 8 then 
+
+
+first+second =&gt; 3 \
+                   then 3+5 =&gt; 8
+second+third =&gt; 5 /
+
+
+### Examples
+```python
+total([-1,-1,-1]) =&gt; -4
+total([1,2,3,4])  =&gt; 20
+```
+
+**Note:** each array/list will have at least an element and all elements will be valid numbers.</pre><h3>original_code</h3><pre>def total(arr):
+	while len(arr) &gt; 1:
+		arr = [x + y for (x, y) in zip(arr, arr[1:])]
+	return arr[0]
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;total&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
+]</pre><h3>expected</h3><pre>48</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 48,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 0,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: 48,
+    &quot;mutant&quot;: 0,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 1 / 9 个可用官方案例（原始字段 9 个）。标签状态：unknown。</p></article><article><h2>b6acf9b8-efdf-4f17-ac18-8caa20db0e84</h2><h3>spec</h3><pre>There are two $n$-element arrays of integers, $A$ and $B$. Permute them into some $A^{\prime}$ and $B^{\prime}$ such that the relation $A^{\prime}[i]+B^{\prime}[i]\ge k$ holds for all $i$ where $0\leq i&lt;n$. 
+
+There will be $q$ queries consisting of $A$, $B$, and $k$. For each query, return YES if some permutation $A^{\prime}$ , $B^{\prime}$  satisfying the relation exists.  Otherwise, return NO. 
+
+Example 
+
+$A=[0,1]$ 
+
+$B=[0,2]$ 
+
+$k=1$   
+
+A valid $A^{\prime}$,$B^{\prime}$ is $A^{\prime}=[1,0]$and $B^{\prime}=[0,2]$:$1+0\geq1$  and $0+2\geq1$.  Return YES.
+
+Function Description  
+
+Complete the twoArrays function in the editor below.  It should return a string, either YES or NO.  
+
+twoArrays has the following parameter(s):  
+
+int k: an integer  
+int A[n]: an array of integers  
+int B[n]: an array of integers   
+
+Returns 
+
+- string: either YES or NO  
+
+Input Format
+
+The first line contains an integer $q$, the number of queries. 
+
+The next $q$ sets of $3$ lines are as follows:
+
+The first line contains two space-separated integers $n$ and $k$, the size of both arrays $A$ and $B$, and the relation variable.
+The second line contains $n$ space-separated integers $A[i]$.
+The third line contains $n$ space-separated integers $B[i]$.
+
+Constraints
+
+$1\leq q\leq10$
+$1\leq n\leq1000$
+$1\leq k\leq10^9$
+$0\le A[i],B[i]\le10^9$
+
+Sample Input
+STDIN       Function
+-----       --------
+2           q = 2
+3 10        A[] and B[] size n = 3, k = 10
+2 1 3       A = [2, 1, 3]
+7 8 9       B = [7, 8, 9]
+4 5         A[] and B[] size n = 4, k = 5
+1 2 2 1     A = [1, 2, 2, 1]
+3 3 3 4     B = [3, 3, 3, 4]
+
+Sample Output
+YES
+NO
+
+Explanation
+
+There are two queries:
+
+Permute these into $A^{\prime}=[1,2,3] $and $B^{\prime}=[9,8,7] $ so that the following statements are true:
+
+$A[0]+B[1]=1+9=10\ge k$      
+$A[1]+B[1]=2+8=10\ge k$
+$A[2]+B[2]=3+7=10\geq k$  
+
+$A=[1,2,2,1]$, $B=[3,3,34]$, and $k=5$. To permute $A$ and $B$ into a valid $A^{\prime}$ and $B^{\prime}$, there must be at least three numbers in $A$ that are greater than $1$.</pre><h3>original_code</h3><pre>def isGood(listA, listB, k):
+	n = len(listA)
+	listA.sort()
+	listB.sort(reverse=True)
+	for i in range(n):
+		if listA[i] + listB[i] &lt; k:
+			return False
+	return True
+T = int(input().strip())
+for i in range(T):
+	[n, k] = [int(x) for x in input().strip().split()]
+	listA = [int(x) for x in input().strip().split()]
+	listB = [int(x) for x in input().strip().split()]
+	if isGood(listA, listB, k):
+		print(&#x27;YES&#x27;)
+	else:
+		print(&#x27;NO&#x27;)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>2
+3 10
+2 1 3
+7 8 9
+4 5
+1 2 2 1
+3 3 3 4
+</pre><h3>expected</h3><pre>YES
+NO
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YES\nNO\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;NO\nNO\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;YES\nNO\n&quot;,
+    &quot;mutant&quot;: &quot;NO\nNO\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 1 个可用官方案例（原始字段 1 个）。标签状态：unknown。</p></article><article><h2>803826c8-1076-4d66-acc6-26b7d73c5f98</h2><h3>spec</h3><pre>There are two $n$-element arrays of integers, $A$ and $B$. Permute them into some $A^{\prime}$ and $B^{\prime}$ such that the relation $A^{\prime}[i]+B^{\prime}[i]\ge k$ holds for all $i$ where $0\leq i&lt;n$. 
+
+There will be $q$ queries consisting of $A$, $B$, and $k$. For each query, return YES if some permutation $A^{\prime}$ , $B^{\prime}$  satisfying the relation exists.  Otherwise, return NO. 
+
+Example 
+
+$A=[0,1]$ 
+
+$B=[0,2]$ 
+
+$k=1$   
+
+A valid $A^{\prime}$,$B^{\prime}$ is $A^{\prime}=[1,0]$and $B^{\prime}=[0,2]$:$1+0\geq1$  and $0+2\geq1$.  Return YES.
+
+Function Description  
+
+Complete the twoArrays function in the editor below.  It should return a string, either YES or NO.  
+
+twoArrays has the following parameter(s):  
+
+int k: an integer  
+int A[n]: an array of integers  
+int B[n]: an array of integers   
+
+Returns 
+
+- string: either YES or NO  
+
+Input Format
+
+The first line contains an integer $q$, the number of queries. 
+
+The next $q$ sets of $3$ lines are as follows:
+
+The first line contains two space-separated integers $n$ and $k$, the size of both arrays $A$ and $B$, and the relation variable.
+The second line contains $n$ space-separated integers $A[i]$.
+The third line contains $n$ space-separated integers $B[i]$.
+
+Constraints
+
+$1\leq q\leq10$
+$1\leq n\leq1000$
+$1\leq k\leq10^9$
+$0\le A[i],B[i]\le10^9$
+
+Sample Input
+STDIN       Function
+-----       --------
+2           q = 2
+3 10        A[] and B[] size n = 3, k = 10
+2 1 3       A = [2, 1, 3]
+7 8 9       B = [7, 8, 9]
+4 5         A[] and B[] size n = 4, k = 5
+1 2 2 1     A = [1, 2, 2, 1]
+3 3 3 4     B = [3, 3, 3, 4]
+
+Sample Output
+YES
+NO
+
+Explanation
+
+There are two queries:
+
+Permute these into $A^{\prime}=[1,2,3] $and $B^{\prime}=[9,8,7] $ so that the following statements are true:
+
+$A[0]+B[1]=1+9=10\ge k$      
+$A[1]+B[1]=2+8=10\ge k$
+$A[2]+B[2]=3+7=10\geq k$  
+
+$A=[1,2,2,1]$, $B=[3,3,34]$, and $k=5$. To permute $A$ and $B$ into a valid $A^{\prime}$ and $B^{\prime}$, there must be at least three numbers in $A$ that are greater than $1$.</pre><h3>original_code</h3><pre>def isGood(listA, listB, k):
+	n = len(listA)
+	listA.sort()
+	listB.sort(reverse=True)
+	for i in range(n):
+		if listA[i] + listB[i] &lt; k:
+			return False
+	return True
+T = int(input().strip())
+for i in range(T):
+	[n, k] = [int(x) for x in input().strip().split()]
+	listA = [int(x) for x in input().strip().split()]
+	listB = [int(x) for x in input().strip().split()]
+	if isGood(listA, listB, k):
+		print(&#x27;YES&#x27;)
+	else:
+		print(&#x27;NO&#x27;)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>2
+3 10
+2 1 3
+7 8 9
+4 5
+1 2 2 1
+3 3 3 4
+</pre><h3>expected</h3><pre>YES
+NO
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YES\nNO\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;NO\nNO\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;YES\nNO\n&quot;,
+    &quot;mutant&quot;: &quot;NO\nNO\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 1 个可用官方案例（原始字段 1 个）。标签状态：unknown。</p></article><article><h2>359dcf89-4e2f-44b5-9a34-a5b526540afc</h2><h3>spec</h3><pre>You are given a decimal representation of an integer $x$ without leading zeros.
+
+You have to perform the following reduction on it exactly once: take two neighboring digits in $x$ and replace them with their sum without leading zeros (if the sum is $0$, it&#x27;s represented as a single $0$).
+
+For example, if $x = 10057$, the possible reductions are:
+
+choose the first and the second digits $1$ and $0$, replace them with $1+0=1$; the result is $1057$;
+
+choose the second and the third digits $0$ and $0$, replace them with $0+0=0$; the result is also $1057$;
+
+choose the third and the fourth digits $0$ and $5$, replace them with $0+5=5$; the result is still $1057$;
+
+choose the fourth and the fifth digits $5$ and $7$, replace them with $5+7=12$; the result is $10012$.
+
+What&#x27;s the largest number that can be obtained?
+
+
+-----Input-----
+
+The first line contains a single integer $t$ ($1 \le t \le 10^4$) — the number of testcases.
+
+Each testcase consists of a single integer $x$ ($10 \le x &lt; 10^{200000}$). $x$ doesn&#x27;t contain leading zeros.
+
+The total length of the decimal representations of $x$ over all testcases doesn&#x27;t exceed $2 \cdot 10^5$.
+
+
+-----Output-----
+
+For each testcase, print a single integer — the largest number that can be obtained after the reduction is applied exactly once. The number should not contain leading zeros.
+
+
+-----Examples-----
+
+Input
+2
+10057
+90
+Output
+10012
+9
+
+
+-----Note-----
+
+The first testcase of the example is already explained in the statement.
+
+In the second testcase, there is only one possible reduction: the first and the second digits.</pre><h3>original_code</h3><pre>import sys, collections
+equal = {&#x27;19&#x27;, &#x27;28&#x27;, &#x27;29&#x27;, &#x27;37&#x27;, &#x27;38&#x27;, &#x27;39&#x27;, &#x27;46&#x27;, &#x27;47&#x27;, &#x27;48&#x27;, &#x27;49&#x27;, &#x27;55&#x27;, &#x27;56&#x27;, &#x27;57&#x27;, &#x27;58&#x27;, &#x27;59&#x27;, &#x27;64&#x27;, &#x27;65&#x27;, &#x27;66&#x27;, &#x27;67&#x27;, &#x27;68&#x27;, &#x27;69&#x27;, &#x27;73&#x27;, &#x27;74&#x27;, &#x27;75&#x27;, &#x27;76&#x27;, &#x27;77&#x27;, &#x27;78&#x27;, &#x27;79&#x27;, &#x27;82&#x27;, &#x27;83&#x27;, &#x27;84&#x27;, &#x27;85&#x27;, &#x27;86&#x27;, &#x27;87&#x27;, &#x27;88&#x27;, &#x27;89&#x27;, &#x27;91&#x27;, &#x27;92&#x27;, &#x27;93&#x27;, &#x27;94&#x27;, &#x27;95&#x27;, &#x27;96&#x27;, &#x27;97&#x27;, &#x27;98&#x27;, &#x27;99&#x27;}
+
+def solve(s):
+	n = len(s)
+	for i in range(n - 2, -1, -1):
+		if s[i:i + 2] in equal:
+			mid = str(int(s[i]) + int(s[i + 1]))
+			return s[:i] + mid + s[i + 2:]
+	mid = str(int(s[0]) + int(s[1]))
+	return mid + s[2:]
+input = sys.stdin.readline
+tests = int(input()[:-1])
+for test in range(tests):
+	s = input()[:-1]
+	print(solve(s))
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>2
+10057
+90
+</pre><h3>expected</h3><pre>10012
+9
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;10012\n9\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;100-2\n9\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;10012\n9\n&quot;,
+    &quot;mutant&quot;: &quot;100-2\n9\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 1 个可用官方案例（原始字段 1 个）。标签状态：unknown。</p></article><article><h2>3ac5b1d9-d03b-413a-bc52-7388faa5a457</h2><h3>spec</h3><pre>An **anagram** is the result of rearranging the letters of a word to produce a new word.
+
+**Note:** anagrams are case insensitive
+
+Complete the function to return `true` if the two arguments given are anagrams of each other; return `false` otherwise.
+
+
+## Examples
+
+* `&quot;foefet&quot;` is an anagram of `&quot;toffee&quot;`
+
+* `&quot;Buckethead&quot;` is an anagram of `&quot;DeathCubeK&quot;`</pre><h3>original_code</h3><pre>def is_anagram(test, original):
+	return sorted(original.lower()) == sorted(test.lower())
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;is_anagram&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0,
+    1
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  &quot;foefet&quot;,
+  &quot;toffee&quot;
+]</pre><h3>expected</h3><pre>true</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: true,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: false,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: true,
+    &quot;mutant&quot;: false,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 1 / 6 个可用官方案例（原始字段 6 个）。标签状态：unknown。</p></article><article><h2>89f57ad9-d217-4e0a-8836-8a8d37c44feb</h2><h3>spec</h3><pre>Given a string &#x27;s&#x27;. The task is to find the smallest window length that contains all the characters of the given string at least one time.
+For eg. A = aabcbcdbca, then the result would be 4 as of the smallest window will be dbca.
+ 
+Example 1:
+Input : &quot;AABBBCBBAC&quot;
+Output : 3
+Explanation : Sub-string -&gt; &quot;BAC&quot;
+Example 2:
+Input : &quot;aaab&quot;
+Output : 2
+Explanation : Sub-string -&gt; &quot;ab&quot;
+ 
+Example 3:
+Input : &quot;GEEKSGEEKSFOR&quot;
+Output : 8
+Explanation : Sub-string -&gt; &quot;GEEKSFOR&quot;
+ 
+Your Task:  
+You don&#x27;t need to read input or print anything. Your task is to complete the function findSubString() which takes the string  S as input and returns the length of the smallest such window of the string.
+Expected Time Complexity: O(256.N)
+Expected Auxiliary Space: O(256)
+ 
+Constraints:
+1 ≤ |S| ≤ 10^{5}
+String may contain both type of English Alphabets.</pre><h3>original_code</h3><pre>class Solution:
+
+	def findSubString(self, str):
+		dict = {}
+		ans = float(&#x27;inf&#x27;)
+		j = 0
+		for i in str:
+			if i not in dict:
+				dict[i] = 0
+		length = len(dict)
+		for i in range(len(str)):
+			dict[str[i]] += 1
+			if dict[str[i]] == 1:
+				length -= 1
+			while length == 0:
+				ans = min(ans, i - j + 1)
+				dict[str[j]] -= 1
+				if dict[str[j]] == 0:
+					length += 1
+				j += 1
+		return ans
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;findSubString&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0
+  ],
+  &quot;target&quot;: &quot;solution_method&quot;
+}</pre><h3>input</h3><pre>[
+  &quot;AABBBCBBAC&quot;
+]</pre><h3>expected</h3><pre>3</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 3,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 1,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: 3,
+    &quot;mutant&quot;: 1,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 1 / 3 个可用官方案例（原始字段 3 个）。标签状态：unknown。</p></article><article><h2>358ac599-a018-420b-b6af-0cc6ad508fcd</h2><h3>spec</h3><pre>Given a string &#x27;s&#x27;. The task is to find the smallest window length that contains all the characters of the given string at least one time.
+For eg. A = aabcbcdbca, then the result would be 4 as of the smallest window will be dbca.
+ 
+Example 1:
+Input : &quot;AABBBCBBAC&quot;
+Output : 3
+Explanation : Sub-string -&gt; &quot;BAC&quot;
+Example 2:
+Input : &quot;aaab&quot;
+Output : 2
+Explanation : Sub-string -&gt; &quot;ab&quot;
+ 
+Example 3:
+Input : &quot;GEEKSGEEKSFOR&quot;
+Output : 8
+Explanation : Sub-string -&gt; &quot;GEEKSFOR&quot;
+ 
+Your Task:  
+You don&#x27;t need to read input or print anything. Your task is to complete the function findSubString() which takes the string  S as input and returns the length of the smallest such window of the string.
+Expected Time Complexity: O(256.N)
+Expected Auxiliary Space: O(256)
+ 
+Constraints:
+1 ≤ |S| ≤ 10^{5}
+String may contain both type of English Alphabets.</pre><h3>original_code</h3><pre>class Solution:
+
+	def findSubString(self, str):
+		dict = {}
+		ans = float(&#x27;inf&#x27;)
+		j = 0
+		for i in str:
+			if i not in dict:
+				dict[i] = 0
+		length = len(dict)
+		for i in range(len(str)):
+			dict[str[i]] += 1
+			if dict[str[i]] == 1:
+				length -= 1
+			while length == 0:
+				ans = min(ans, i - j + 1)
+				dict[str[j]] -= 1
+				if dict[str[j]] == 0:
+					length += 1
+				j += 1
+		return ans
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;findSubString&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0
+  ],
+  &quot;target&quot;: &quot;solution_method&quot;
+}</pre><h3>input</h3><pre>[
+  &quot;AABBBCBBAC&quot;
+]</pre><h3>expected</h3><pre>3</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 3,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 4,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: 3,
+    &quot;mutant&quot;: 4,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 1 / 3 个可用官方案例（原始字段 3 个）。标签状态：unknown。</p></article><article><h2>138f9969-f6a7-49e6-80d1-c20d15a2a2e5</h2><h3>spec</h3><pre>The Cybermen and the Daleks have long been the Doctor&#x27;s main enemies. Everyone knows that both these species enjoy destroying everything they encounter. However, a little-known fact about them is that they both also love taking Turing tests!
+
+Heidi designed a series of increasingly difficult tasks for them to spend their time on, which would allow the Doctor enough time to save innocent lives!
+
+The funny part is that these tasks would be very easy for a human to solve.
+
+The first task is as follows. There are some points on the plane. All but one of them are on the boundary of an axis-aligned square (its sides are parallel to the axes). Identify that point.
+
+
+-----Input-----
+
+The first line contains an integer $n$ ($2 \le n \le 10$).
+
+Each of the following $4n + 1$ lines contains two integers $x_i, y_i$ ($0 \leq x_i, y_i \leq 50$), describing the coordinates of the next point.
+
+It is guaranteed that there are at least $n$ points on each side of the square and all $4n + 1$ points are distinct.
+
+
+-----Output-----
+
+Print two integers — the coordinates of the point that is not on the boundary of the square.
+
+
+-----Examples-----
+Input
+2
+0 0
+0 1
+0 2
+1 0
+1 1
+1 2
+2 0
+2 1
+2 2
+
+Output
+1 1
+
+Input
+2
+0 0
+0 1
+0 2
+0 3
+1 0
+1 2
+2 0
+2 1
+2 2
+
+Output
+0 3
+
+
+
+-----Note-----
+
+In both examples, the square has four sides $x=0$, $x=2$, $y=0$, $y=2$.</pre><h3>original_code</h3><pre>from sys import stdin, stdout
+
+def rsingle_int():
+	return int(stdin.readline().rstrip())
+
+def rmult_int():
+	return [int(x) for x in stdin.readline().rstrip().split()]
+
+def r_str():
+	return stdin.readline().rstrip()
+
+def rsingle_char():
+	return stdin.read(1)
+
+def main():
+	n = rsingle_int()
+	num_p = 4 * n + 1
+	points = []
+	for i in range(num_p):
+		points.append(rmult_int())
+	point_x = {}
+	for point in points:
+		if point[0] not in point_x:
+			point_x[point[0]] = 0
+		point_x[point[0]] += 1
+	point_y = {}
+	for point in points:
+		if point[1] not in point_y:
+			point_y[point[1]] = 0
+		point_y[point[1]] += 1
+	x_min = 51
+	x_max = -1
+	for x_key in point_x.keys():
+		if x_key &gt; x_max and point_x[x_key] &gt; 1:
+			x_max = x_key
+		if x_key &lt; x_min and point_x[x_key] &gt; 1:
+			x_min = x_key
+	y_min = 51
+	y_max = -1
+	for y_key in point_y.keys():
+		if y_key &gt; y_max and point_y[y_key] &gt; 1:
+			y_max = y_key
+		if y_key &lt; y_min and point_y[y_key] &gt; 1:
+			y_min = y_key
+	found = False
+	for point in points:
+		if point[0] == x_max or point[0] == x_min:
+			if not (point[1] &lt;= y_max and point[1] &gt;= y_min):
+				found = True
+		elif point[1] == y_max or point[1] == y_min:
+			if not (point[0] &lt;= x_max and point[0] &gt;= x_min):
+				found = True
+		else:
+			found = True
+		if found:
+			break
+	if found:
+		print(&#x27;{} {}&#x27;.format(point[0], point[1]))
+	else:
+		print(&#x27;Error&#x27;)
+main()
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>2
+5 14
+5 17
+25 43
+26 43
+32 41
+33 0
+38 0
+48 17
+48 30
+</pre><h3>expected</h3><pre>32 41
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;32 41\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;25 43\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;32 41\n&quot;,
+    &quot;mutant&quot;: &quot;25 43\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 3 / 107 个可用官方案例（原始字段 154 个）。标签状态：unknown。</p></article><article><h2>ae0fe55d-e0cf-45a8-847f-4285e2db2e93</h2><h3>spec</h3><pre>Silver Fox is fighting with N monsters.
+The monsters are standing in a row, and we can assume them to be standing on a number line. The i-th monster, standing at the coordinate X_i, has the health of H_i.
+Silver Fox can use bombs to attack the monsters.
+Using a bomb at the coordinate x decreases the healths of all monsters between the coordinates x-D and x+D (inclusive) by A.
+There is no way other than bombs to decrease the monster&#x27;s health.
+Silver Fox wins when all the monsters&#x27; healths become 0 or below.
+Find the minimum number of bombs needed to win.
+
+-----Constraints-----
+ - 1 \leq N \leq 2 \times 10^5
+ - 0 \leq D \leq 10^9
+ - 1 \leq A \leq 10^9
+ - 0 \leq X_i \leq 10^9
+ - 1 \leq H_i \leq 10^9
+ - X_i are distinct.
+ - All values in input are integers.
+
+-----Input-----
+Input is given from Standard Input in the following format:
+N D A
+X_1 H_1
+:
+X_N H_N
+
+-----Output-----
+Print the minimum number of bombs needed to win.
+
+-----Sample Input-----
+3 3 2
+1 2
+5 4
+9 2
+
+-----Sample Output-----
+2
+
+First, let us use a bomb at the coordinate 4 to decrease the first and second monsters&#x27; health by 2.
+Then, use a bomb at the coordinate 6 to decrease the second and third monsters&#x27; health by 2.
+Now, all the monsters&#x27; healths are 0.
+We cannot make all the monsters&#x27; health drop to 0 or below with just one bomb.</pre><h3>original_code</h3><pre>(n, d, a) = map(int, input().split())
+xh = [list(map(int, input().split())) for _ in range(n)]
+xh.sort(key=lambda x: x[0])
+from collections import deque
+minusd = deque()
+nowd = 0
+ans = 0
+for (x, h) in xh:
+	while minusd and minusd[0][1] &lt;= x:
+		(d_, _) = minusd.popleft()
+		nowd -= d_
+	tmp = max(0, (h - nowd + a - 1) // a)
+	ans += tmp
+	nowd += tmp * a
+	minusd.append([tmp * a, x + 2 * d + 1])
+print(ans)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>9 0 1
+1 6
+3 4
+3 3
+1 -1
+5 0
+9 0
+2 3
+8 4
+18 0</pre><h3>expected</h3><pre>17
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;17\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;14\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;17\n&quot;,
+    &quot;mutant&quot;: &quot;14\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 31 / 106 个可用官方案例（原始字段 106 个）。标签状态：unknown。</p></article><article><h2>27af85e2-56f0-4855-a2d3-9796c5c69aa0</h2><h3>spec</h3><pre>You&#x27;re a statistics professor and the deadline for submitting your students&#x27; grades is tonight at midnight. Each student&#x27;s grade is determined by their mean score across all of the tests they took this semester.
+
+You&#x27;ve decided to automate grade calculation by writing a function `calculate_grade()` that takes a list of test scores as an argument and returns a one character string representing the student&#x27;s grade calculated as follows:
+
+ * 90% &lt;= mean score &lt;= 100%: `&quot;A&quot;`,
+ * 80% &lt;= mean score &lt; 90%: `&quot;B&quot;`,
+ * 70% &lt;= mean score &lt; 80%: `&quot;C&quot;`,
+ * 60% &lt;= mean score &lt; 70%: `&quot;D&quot;`,
+ * mean score &lt; 60%: `&quot;F&quot;`
+
+For example, `calculate_grade([92, 94, 99])` would return `&quot;A&quot;` since the mean score is `95`, and `calculate_grade([50, 60, 70, 80, 90])` would return `&quot;C&quot;` since the mean score is `70`.
+
+Your function should handle an input list of any length greater than zero.</pre><h3>original_code</h3><pre>from bisect import bisect
+from statistics import mean
+
+def calculate_grade(scores):
+	return &#x27;FDCBA&#x27;[bisect([60, 70, 80, 90], mean(scores))]
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;calculate_grade&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  [
+    92,
+    94,
+    99
+  ]
+]</pre><h3>expected</h3><pre>A</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;A&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;B&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;A&quot;,
+    &quot;mutant&quot;: &quot;B&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 1 / 3 个可用官方案例（原始字段 3 个）。标签状态：unknown。</p></article><article><h2>1c4bf1b8-2e09-44db-bb37-4d039ea2e084</h2><h3>spec</h3><pre>Jerry is a little mouse. He is trying to survive from the cat Tom. Jerry is carrying a parallelepiped-like piece of cheese of size A × B × C. It is necessary to trail this cheese to the Jerry&#x27;s house. There are several entrances in the Jerry&#x27;s house. Each entrance is a rounded hole having its own radius R. Could you help Jerry to find suitable holes to be survive?
+
+Your task is to create a program which estimates whether Jerry can trail the cheese via each hole. The program should print &quot;OK&quot; if Jerry can trail the cheese via the corresponding hole (without touching it). Otherwise the program should print &quot;NA&quot;.
+
+You may assume that the number of holes is less than 10000.
+
+
+
+Input
+
+The input is a sequence of datasets. The end of input is indicated by a line containing three zeros. Each dataset is formatted as follows:
+
+
+A B C
+n
+R1
+R2
+
+.
+.
+Rn
+
+
+n indicates the number of holes (entrances) and Ri indicates the radius of i-th hole.
+
+Output
+
+For each datasets, the output should have n lines. Each line points the result of estimation of the corresponding hole.
+
+Example
+
+Input
+
+10 6 8
+5
+4
+8
+6
+2
+5
+0 0 0
+
+
+Output
+
+NA
+OK
+OK
+NA
+NA</pre><h3>original_code</h3><pre>while True:
+	(d, w, h) = sorted(map(int, input().split()))
+	if d == w == h == 0:
+		break
+	dw = d ** 2 + w ** 2
+	n = int(input())
+	for i in range(n):
+		y = int(input())
+		if (2 * y) ** 2 &gt; dw:
+			print(&#x27;OK&#x27;)
+		else:
+			print(&#x27;NA&#x27;)
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>10 6 8
+5
+4
+1
+6
+2
+5
+0 0 0</pre><h3>expected</h3><pre>NA
+NA
+OK
+NA
+NA
+</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;NA\nNA\nOK\nNA\nNA\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;program_exception&quot;,
+  &quot;output&quot;: null,
+  &quot;exception_class&quot;: &quot;ValueError&quot;,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;exception&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;program_exception&quot;,
+    &quot;original&quot;: &quot;NA\nNA\nOK\nNA\nNA\n&quot;,
+    &quot;mutant&quot;: null,
+    &quot;exception_class&quot;: &quot;ValueError&quot;
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 101 个可用官方案例（原始字段 101 个）。标签状态：unknown。</p></article><article><h2>1e15b067-f33c-46f1-bc10-e233e1d08067</h2><h3>spec</h3><pre>When Chef was born, his parents took him to the famous monk Doctor Strange to know whether he will land himself in heaven after his life or not. According to Strange, Chef will live for $L$ years in total. If he wants to go to heaven, he must spend at least $50\%$ of his life years doing good deeds. He also shows them his future using a string $S$ of length $L$ where $S_{i} = 0$ means the $i$-th year will be counted as bad as per the rule books of heaven and $S_{i} = 1$ means the $i$-th year will be counted as good.
+
+Also, Strange can use his special powers to make Chef end his life earlier than that planned by god, i.e, he can choose some $L&#x27;$ ($1≤ L&#x27;≤ L$) and make him live for only $L&#x27; $ years. Strange wants Chef to succeed, so if there is any choice of $L&#x27;$ that allows Chef to go to heaven, he will do so.
+
+Tell whether Chef can go to heaven.
+
+------ Input ------
+
+The first line contains an integer $T$, the number of test cases. Then the test cases follow. 
+Each test case contains two lines of input.
+The first line contains a single integer $L$.
+The second line contains a string $S$ of length $L$, consisting of symbols 0 and 1.
+
+------ Output ------
+For each test case, output the answer in a single line: &quot;YES&quot; if Chef can go to heaven and &quot;NO&quot; if not (without quotes).
+
+You may print each character of each string in uppercase or lowercase (for example, the strings &quot;yEs&quot;, &quot;yes&quot;, &quot;Yes&quot; and &quot;YES&quot; will all be treated as identical).
+
+------ Constraints  ------
+$1 ≤ L ≤ 10^{5}$
+The sum of $L$ over all tests does not exceed $10^{6}$
+
+------ Subtasks ------
+
+Subtask #1 (100 points): original constraints
+
+----- Sample Input 1 ------ 
+3
+
+2
+
+10
+
+3
+
+001
+
+4
+
+0100
+----- Sample Output 1 ------ 
+YES
+
+NO
+
+YES
+----- explanation 1 ------ 
+Test case 1: If Chef lives for the complete $2$ years, he will have a total of $1$ good year which is $\frac{1 * 100}{2} = 50\%$ of his life, and hence he will go to heaven.
+
+Test case 2: There&#x27;s no way Chef can go to heaven.
+
+Test case 3: If Chef lives for $2$ years, he will have a total of $1$ good year which is $\frac{1 * 100}{2} = 50\%$ of his life, and hence he will go to heaven.</pre><h3>original_code</h3><pre>for i in range(0, int(input())):
+	n = int(input())
+	l = list(input())
+	t = 0
+	a = 0
+	b = 0
+	for j in range(0, n):
+		t = t + 1
+		if l[j] == &#x27;0&#x27;:
+			a = a + 1
+		else:
+			b = b + 1
+		if b &gt;= t / 2:
+			print(&#x27;YES&#x27;)
+			break
+		elif j == n - 1 and b &lt; t / 2:
+			print(&#x27;NO&#x27;)
+		else:
+			continue
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>3
+2
+10
+3
+001
+4
+0100</pre><h3>expected</h3><pre>YES
+NO
+YES</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YES\nNO\nYES\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YES\nYES\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;YES\nNO\nYES\n&quot;,
+    &quot;mutant&quot;: &quot;YES\nYES\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 1 个可用官方案例（原始字段 1 个）。标签状态：unknown。</p></article><article><h2>762b948f-c7e0-4b3b-ae3e-62da2571b1ce</h2><h3>spec</h3><pre>When Chef was born, his parents took him to the famous monk Doctor Strange to know whether he will land himself in heaven after his life or not. According to Strange, Chef will live for $L$ years in total. If he wants to go to heaven, he must spend at least $50\%$ of his life years doing good deeds. He also shows them his future using a string $S$ of length $L$ where $S_{i} = 0$ means the $i$-th year will be counted as bad as per the rule books of heaven and $S_{i} = 1$ means the $i$-th year will be counted as good.
+
+Also, Strange can use his special powers to make Chef end his life earlier than that planned by god, i.e, he can choose some $L&#x27;$ ($1≤ L&#x27;≤ L$) and make him live for only $L&#x27; $ years. Strange wants Chef to succeed, so if there is any choice of $L&#x27;$ that allows Chef to go to heaven, he will do so.
+
+Tell whether Chef can go to heaven.
+
+------ Input ------
+
+The first line contains an integer $T$, the number of test cases. Then the test cases follow. 
+Each test case contains two lines of input.
+The first line contains a single integer $L$.
+The second line contains a string $S$ of length $L$, consisting of symbols 0 and 1.
+
+------ Output ------
+For each test case, output the answer in a single line: &quot;YES&quot; if Chef can go to heaven and &quot;NO&quot; if not (without quotes).
+
+You may print each character of each string in uppercase or lowercase (for example, the strings &quot;yEs&quot;, &quot;yes&quot;, &quot;Yes&quot; and &quot;YES&quot; will all be treated as identical).
+
+------ Constraints  ------
+$1 ≤ L ≤ 10^{5}$
+The sum of $L$ over all tests does not exceed $10^{6}$
+
+------ Subtasks ------
+
+Subtask #1 (100 points): original constraints
+
+----- Sample Input 1 ------ 
+3
+
+2
+
+10
+
+3
+
+001
+
+4
+
+0100
+----- Sample Output 1 ------ 
+YES
+
+NO
+
+YES
+----- explanation 1 ------ 
+Test case 1: If Chef lives for the complete $2$ years, he will have a total of $1$ good year which is $\frac{1 * 100}{2} = 50\%$ of his life, and hence he will go to heaven.
+
+Test case 2: There&#x27;s no way Chef can go to heaven.
+
+Test case 3: If Chef lives for $2$ years, he will have a total of $1$ good year which is $\frac{1 * 100}{2} = 50\%$ of his life, and hence he will go to heaven.</pre><h3>original_code</h3><pre>for i in range(0, int(input())):
+	n = int(input())
+	l = list(input())
+	t = 0
+	a = 0
+	b = 0
+	for j in range(0, n):
+		t = t + 1
+		if l[j] == &#x27;0&#x27;:
+			a = a + 1
+		else:
+			b = b + 1
+		if b &gt;= t / 2:
+			print(&#x27;YES&#x27;)
+			break
+		elif j == n - 1 and b &lt; t / 2:
+			print(&#x27;NO&#x27;)
+		else:
+			continue
+</pre><h3>entry</h3><pre>{
+  &quot;mode&quot;: &quot;stdin_stdout&quot;
+}</pre><h3>input</h3><pre>3
+2
+10
+3
+001
+4
+0100</pre><h3>expected</h3><pre>YES
+NO
+YES</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;text_lines&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YES\nNO\nYES\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: &quot;YES\nYES\n&quot;,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;stdout&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: &quot;YES\nNO\nYES\n&quot;,
+    &quot;mutant&quot;: &quot;YES\nYES\n&quot;,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;text_lines&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;stdout&quot;
+}</pre><p>已执行 1 / 1 个可用官方案例（原始字段 1 个）。标签状态：unknown。</p></article><article><h2>5b3dfac3-ea92-4169-93fb-a2bba9c6f55e</h2><h3>spec</h3><pre>Write a function that takes an array/list of numbers and returns a number such that 
+
+Explanation
+total([1,2,3,4,5]) =&gt; 48
+
+1+2=3--\ 3+5 =&gt;     8 \
+2+3=5--/ \            ==  8+12=&gt;20\     
+          ==&gt;5+7=&gt; 12 / \           20+28 =&gt; 48
+3+4=7--\ /            == 12+16=&gt;28/
+4+5=9--/ 7+9 =&gt;     16  /
+
+
+if total([1,2,3]) =&gt; 8 then 
+
+
+first+second =&gt; 3 \
+                   then 3+5 =&gt; 8
+second+third =&gt; 5 /
+
+
+### Examples
+```python
+total([-1,-1,-1]) =&gt; -4
+total([1,2,3,4])  =&gt; 20
+```
+
+**Note:** each array/list will have at least an element and all elements will be valid numbers.</pre><h3>original_code</h3><pre>def total(arr):
+	while len(arr) &gt; 1:
+		arr = [x + y for (x, y) in zip(arr, arr[1:])]
+	return arr[0]
+</pre><h3>entry</h3><pre>{
+  &quot;fn_name&quot;: &quot;total&quot;,
+  &quot;mode&quot;: &quot;function&quot;,
+  &quot;parameter_order&quot;: [
+    0
+  ],
+  &quot;target&quot;: &quot;function&quot;
+}</pre><h3>input</h3><pre>[
+  [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
+]</pre><h3>expected</h3><pre>48</pre><h3>comparison</h3><pre>{
+  &quot;kind&quot;: &quot;json_exact&quot;
+}</pre><h3>original_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 48,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;pass&quot;
+}</pre><h3>mutant_observation</h3><pre>{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;output&quot;: 20,
+  &quot;exception_class&quot;: null,
+  &quot;verdict&quot;: &quot;fail&quot;
+}</pre><h3>observable_consequence</h3><pre>[
+  {
+    &quot;channel&quot;: &quot;return&quot;,
+    &quot;original_status&quot;: &quot;ok&quot;,
+    &quot;mutant_status&quot;: &quot;ok&quot;,
+    &quot;original&quot;: 48,
+    &quot;mutant&quot;: 20,
+    &quot;exception_class&quot;: null
+  }
+]</pre><h3>oracle_type</h3><pre>{
+  &quot;comparison&quot;: {
+    &quot;kind&quot;: &quot;json_exact&quot;
+  },
+  &quot;kind&quot;: &quot;exact_value&quot;,
+  &quot;requirement&quot;: &quot;taco-mutation-light pipeline不支持&quot;,
+  &quot;target&quot;: &quot;return&quot;
+}</pre><p>已执行 1 / 9 个可用官方案例（原始字段 9 个）。标签状态：unknown。</p></article></html>
