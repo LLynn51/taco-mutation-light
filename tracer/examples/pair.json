@@ -1,0 +1,19 @@
+{
+  "spec": "Given an integer x, return x + 1.",
+  "original_code": "def solve(x):\n    y = x + 1\n    return y\n",
+  "mutant_code": "def solve(x):\n    y = x - 1\n    return y\n",
+  "input": [3],
+  "input_source": "synthetic_documentation_example",
+  "expected": 4,
+  "execution_contract": {
+    "entry": {
+      "mode": "function",
+      "fn_name": "solve",
+      "target": "function",
+      "parameter_order": [0],
+      "output_channel": "return"
+    },
+    "comparison": {"kind": "json_exact"},
+    "exception_policy": "forbidden"
+  }
+}
