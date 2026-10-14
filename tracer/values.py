@@ -7,13 +7,24 @@ import json
 import math
 import types
 
+try:
+    from .adapters.policy import symbol, is_large
+    from .adapters.sequences import positions
+except ImportError:  # explicit trusted modules loaded by the isolated driver
+    from trace_policy import symbol, is_large
+    from trace_sequences import positions
+
 
 class Encoder:
-    def __init__(self, limits):
+    def __init__(self, limits, *, omitted_names=(), local_context=None, full=False):
         self.limits = limits
         self.seen = {}
         self.nodes = 0
         self.missing = 0
+        self.omitted_names = set(omitted_names)
+        self.local_context = local_context or {}
+        self.full = full
+        self.symbols = 0
 
     def absent(self, reason):
         self.missing += 1
@@ -26,6 +37,10 @@ class Encoder:
         if depth > self.limits["max_depth"]:
             return self.absent("depth_limit")
         cls = type(value)
+        description = symbol(value)
+        if description is not None:
+            self.symbols += 1
+            return description
         if value is None:
             return {"type": "NoneType", "value": None}
         if cls in (bool, int):
@@ -76,6 +91,14 @@ class Encoder:
             result["class"] = type.__getattribute__(cls, "__name__")
         count = len(fields)
         result["length"] = count
+        if not self.full and is_large(value, self.limits):
+            indices, windows = positions(count, self.local_context, self.limits)
+            result.update(coverage="partial", selection="head_tail_local_integer_windows",
+                          windows=windows, omitted_count=count - len(indices),
+                          sampled_items=[{"index": i, "value": self.value(value[i], depth + 1)} for i in indices])
+            if len(indices) < count:
+                self.missing += 1
+            return result
         limit = self.limits["max_items"]
         items = []
         iterator = fields.items() if type(fields) is dict else iter(fields)
@@ -94,8 +117,9 @@ class Encoder:
         return result
 
     def snapshot(self, local_values, detail=None, include_detail=False):
-        names = sorted(k for k in local_values if type(k) is str)
-        result = {"locals": {}}
+        self.local_context = local_values
+        names = sorted(k for k in local_values if type(k) is str and k not in self.omitted_names)
+        result = {"locals": {}, "ignored_runtime_names": sorted(self.omitted_names & local_values.keys())}
         used = 0
         for name in names:
             if used >= self.limits["max_snapshot_bytes"] or self.nodes >= self.limits["max_nodes"]:
@@ -112,5 +136,6 @@ class Encoder:
         if include_detail:
             result["detail"] = self.value(detail)
         result["value_gaps"] = self.missing
+        result["symbol_summaries"] = self.symbols
         result["object_id_scope"] = "this_snapshot_only"
         return result

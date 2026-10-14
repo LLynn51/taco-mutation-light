@@ -9,7 +9,7 @@ import time
 import uuid
 
 from .analysis import analyze
-from .compare import compare_pair
+from .compare import compare_pair, comparison_version
 from .runner import TraceRunner, DockerUnavailable, UnsafeIsolation
 from .storage import file_digest, write_json
 
@@ -20,25 +20,29 @@ def emit(stage, **detail):
 
 def binding(cfg):
     here = Path(__file__).resolve().parent
-    return {"trace": cfg["trace"], "analysis": cfg["analysis"],
+    files = ["collect.py", "values.py", "runner.py", "checkpoint_io.py", "inputs.py", "storage.py"]
+    files += [str(p.relative_to(here)) for p in sorted((here / "adapters").glob("*.py"))]
+    return {"schema": "collection_binding_v2", "trace": cfg["trace"],
             "execution": {k: v for k, v in cfg["execution"].items() if k != "workers"},
-            "api": {k: v for k, v in cfg["api"].items() if k != "credential_file"},
-            "files": {p.name: file_digest(p) for p in sorted(here.glob("*.py"))},
+            "files": {p: file_digest(here / p) for p in files},
             "adapter": file_digest(here.parent / "adapters/driver.py"),
-            "base_runner": file_digest(here.parent / "runner.py"),
-            "transport": file_digest(here.parent / "llm.py")}
+            "base_runner": file_digest(here.parent / "runner.py")}
 
 
-def run(pairs, cfg, store, *, paid=False, max_requests=0):
-    frozen = binding(cfg)
-    previous = store.get("meta", "binding")
-    if previous and previous != frozen:
-        raise ValueError("Code/trace/model configuration changed; choose a new --output directory")
-    store.put("meta", "binding", frozen)
+def run(pairs, cfg, store, *, paid=False, max_requests=0, mode="run"):
+    if mode not in ("run", "collect", "compare", "analyze"):
+        raise ValueError("Unknown stage")
+    if mode in ("run", "collect"):
+        frozen = binding(cfg)
+        previous = store.get("meta", "binding")
+        if previous and previous != frozen:
+            raise ValueError("Collection configuration changed; use a new output (compare/analyze can reuse old traces)")
+        store.put("meta", "binding", frozen)
     store.recover_requests()
     stop = threading.Event()
-    runner = TraceRunner(cfg, store, stop)
-    runner.recover()
+    runner = TraceRunner(cfg, store, stop) if mode in ("run", "collect") else None
+    if runner:
+        runner.recover()
     settings = cfg["pipeline"]
     collect_pool = ThreadPoolExecutor(max_workers=settings["collect_workers"], thread_name_prefix="trace")
     compare_pool = ProcessPoolExecutor(max_workers=settings["compare_workers"],
@@ -72,11 +76,23 @@ def run(pairs, cfg, store, *, paid=False, max_requests=0):
         directory = store.directory / "pairs" / key
         write_json(directory / "input.json", pair)
         job = store.get("job", key) or {"collect_attempts": 0}
-        if job.get("comparison"):
+        for record in job.get("traces", {}).values():
+            if file_digest(record["trace_file"]) != record["trace_sha256"]:
+                raise ValueError("Stored trace missing or changed")
+            for cp in record.get("traced", {}).get("checkpoints", {}).values():
+                if file_digest(cp["file"]) != cp["sha256"]:
+                    raise ValueError("Stored checkpoint missing or changed")
+        if mode in ("compare", "analyze") and not job.get("traces"):
+            raise ValueError("This stage requires stored traces")
+        if mode == "analyze" and not job.get("comparison"):
+            raise ValueError("Analyze requires a stored comparison")
+        if mode == "collect" and job.get("traces"):
+            stage = "collected"
+        elif job.get("comparison") and (mode == "analyze" or job.get("comparison_version") == comparison_version(pair, job["traces"], cfg)):
             path = Path(job["comparison"])
             if not path.is_file() or file_digest(path) != job.get("comparison_sha256"):
                 raise ValueError("Comparison artifact missing or changed")
-            stage = "analysis_ready"
+            stage = "compared" if mode == "compare" else "analysis_ready"
         elif job.get("traces"):
             stage = "compare_ready"
         elif job.get("stage") in ("collection_failed", "comparison_failed", "interrupted"):
@@ -139,7 +155,7 @@ def run(pairs, cfg, store, *, paid=False, max_requests=0):
                         futures[future] = (key, "analysis")
                         counts["analysis"] += 1
                         log("analyzing", pair_id=key)
-                if job["stage"] in ("complete", "awaiting_analysis", "collection_failed", "comparison_failed", "analysis_failed"):
+                if job["stage"] in ("complete", "collected", "compared", "awaiting_analysis", "collection_failed", "comparison_failed", "analysis_failed"):
                     save(key, job)
                     write_json(Path(job["directory"]) / "result.json", {k: v for k, v in job.items() if k != "pair"})
                     log(job["stage"], pair_id=key)
@@ -155,9 +171,13 @@ def run(pairs, cfg, store, *, paid=False, max_requests=0):
                 try:
                     value = future.result()
                     if stage == "collect":
-                        job.update(traces=value, stage="compare_ready")
+                        job.update(traces=value, stage="collected" if mode == "collect" else "compare_ready")
                     elif stage == "compare":
-                        job.update(comparison=value, comparison_sha256=file_digest(value), stage="analysis_ready")
+                        if "analysis" in job:
+                            job["previous_analysis"] = job.pop("analysis")
+                        job.update(comparison=value, comparison_sha256=file_digest(value),
+                                   comparison_version=json.loads(Path(value).read_text()).get("version"),
+                                   stage="compared" if mode == "compare" else "analysis_ready")
                     else:
                         job.update(analysis=value, stage="complete")
                 except DockerUnavailable:
@@ -191,21 +211,64 @@ def run(pairs, cfg, store, *, paid=False, max_requests=0):
             try:
                 value = future.result()
                 if stage == "collect":
-                    job.update(traces=value, stage="compare_ready")
+                    job.update(traces=value, stage="collected" if mode == "collect" else "compare_ready")
                 elif stage == "compare":
-                    job.update(comparison=value, comparison_sha256=file_digest(value), stage="analysis_ready")
+                    if "analysis" in job:
+                        job["previous_analysis"] = job.pop("analysis")
+                    job.update(comparison=value, comparison_sha256=file_digest(value),
+                               comparison_version=json.loads(Path(value).read_text()).get("version"),
+                               stage="compared" if mode == "compare" else "analysis_ready")
                 else:
                     job.update(analysis=value, stage="complete")
             except Exception:
                 job["stage"] = "interrupted"
             save(key, job)
-        try:
-            runner.clean()
-        except DockerUnavailable:
-            log("cleanup_pending", detail="Run cleanup after Docker recovers")
+        if runner:
+            try:
+                runner.clean()
+            except DockerUnavailable:
+                log("cleanup_pending", detail="Run cleanup after Docker recovers")
     report = {"jobs": dict(Counter(row["stage"] for _, row in store.rows("job"))),
               "analysis": dict(Counter(row.get("analysis", {}).get("status", "not_requested") for _, row in store.rows("job"))),
               "requests": len(store.rows("request")), "unremoved_containers": len(store.rows("container"))}
+    report["metrics"] = metrics(store)
     write_json(store.directory / "summary.json", report)
     log("finished", **report)
     return report
+
+
+def metrics(store):
+    traces, comparisons, stages = {}, [], Counter()
+    for _, job in store.rows("job"):
+        for record in job.get("traces", {}).values():
+            if type(record) is dict and "trace_file" in record:
+                traces[record["trace_file"]] = record
+        for stage, seconds in job.get("stage_seconds", {}).items():
+            stages[stage] += seconds
+        if job.get("comparison") and Path(job["comparison"]).is_file():
+            comparisons.append(json.loads(Path(job["comparison"]).read_text()))
+    points = []
+    for record in traces.values():
+        for kind in ("baseline", "traced"):
+            t = record.get(kind, {})
+            if t.get("target_started_at") and t.get("target_finished_at"):
+                points += [(t["target_started_at"], 1), (t["target_finished_at"], -1)]
+    active = peak = 0
+    for _, change in sorted(points):
+        active += change
+        peak = max(peak, active)
+    return {"unique_traces": len(traces), "target_interval_peak": peak,
+            "interval_basis": "host_ready_to_result_observations_including_reused_traces",
+            "stage_worker_seconds": dict(stages),
+            "event_bytes": sum(t.get("traced", {}).get("event_bytes", 0) for t in traces.values()),
+            "checkpoint_bytes": sum(t.get("traced", {}).get("checkpoint_bytes", 0) for t in traces.values()),
+            "compressed_event_bytes": sum(Path(t["trace_file"]).stat().st_size for t in traces.values()),
+            "compressed_checkpoint_bytes": sum(Path(cp["file"]).stat().st_size for t in traces.values()
+                                                for cp in t.get("traced", {}).get("checkpoints", {}).values()),
+            "execution_seconds_including_startup": {
+                phase: sum(t.get(phase, {}).get("elapsed_seconds", 0) for t in traces.values())
+                for phase in ("baseline", "traced")},
+            "incomplete_traces": sum(not t.get("traced", {}).get("events_complete", False) for t in traces.values()),
+            "comparison_statuses": dict(Counter(r.get("evidence_status", "unknown") for r in comparisons)),
+            "unmatched_events": {s: sum(r.get("coverage", {}).get(s, {}).get("alignment", {}).get("unmatched", 0)
+                                         for r in comparisons) for s in ("original", "mutant")}}

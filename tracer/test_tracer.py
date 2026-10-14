@@ -114,8 +114,9 @@ class TracerTests(unittest.TestCase):
 
     def test_analysis_rejects_unmeasured_propagation_and_fabricated_refs(self):
         reply = {"summary": "summary", "uncertainty": "limited"}
-        for name in ("first_divergence", "propagation", "trigger_condition", "observable_consequence"):
+        for name in ("first_divergence", "propagation", "trigger_condition"):
             reply[name] = {"text": "bounded", "status": "inferred", "evidence": ["original:1"]}
+        reply["requirement"] = {"text": "insufficient SPEC", "status": "unknown", "spec_basis": []}
         validate(reply, {"original:1"})
         reply["propagation"]["status"] = "observed"
         with self.assertRaises(ValueError):

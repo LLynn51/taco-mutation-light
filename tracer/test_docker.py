@@ -11,6 +11,7 @@ import unittest
 
 from .inputs import ROOT, configuration
 from .compare import events
+from .checkpoint_io import checkpoint_items
 from .runner import TraceRunner
 from .storage import Store, owner, write_json
 
@@ -64,6 +65,25 @@ class DockerTraceTest(unittest.TestCase):
                 write_json(output / "verification.json", {"simulated": False, "api_requests": 0,
                            "peak_overlapping_target_intervals": peak, "records": records})
                 self.assertGreaterEqual(peak, 6, "Six real target intervals must overlap; inspect Docker capacity")
+                source = ("def solve(x):\n"
+                          "    a = [0] * 300\n"
+                          "    i = 250\n"
+                          "    a[i] = x\n"
+                          "    return a[i]\n")
+                array_record = runner.collect_source(source, contract, [7])
+                self.assertTrue(array_record["usable"])
+                checkpoints = array_record["traced"]["checkpoints"]
+                self.assertEqual(len(checkpoints), 2)
+                initial, final = sorted(checkpoints.values(), key=lambda r: r["boundary"])
+                self.assertTrue(initial["complete"] and final["complete"])
+                self.assertEqual(dict(checkpoint_items(initial))[250]["value"], 0)
+                self.assertEqual(dict(checkpoint_items(final))[250]["value"], 7)
+                rows = list(events(array_record["trace_file"], cfg["trace"]))
+                observed = [item["value"]["value"] for row in rows
+                            for item in row.get("locals", {}).get("a", {}).get("sampled_items", [])
+                            if item["index"] == 250]
+                self.assertTrue({0, 7} <= set(observed))
+                write_json(output / "array-verification.json", {"simulated": False, "record": array_record})
                 self.assertFalse(store.rows("container"))
             finally:
                 stop.set()

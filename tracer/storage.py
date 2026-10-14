@@ -102,7 +102,11 @@ class Store:
     def recover_requests(self):
         for key, row in self.rows("request"):
             if row["status"] == "sending":
-                receipt = self.directory / "analysis" / key / "response.json"
+                directory = row.get("analysis_directory") or row.get("request", {}).get("analysis_directory")
+                receipt = (Path(directory) if directory else self.directory / "analysis" / key) / "response.json"
+                if directory:
+                    row.setdefault("analysis_directory", directory)
+                    row.setdefault("analysis_version", row.get("request", {}).get("analysis_version"))
                 if receipt.is_file():
                     row.update(status="received", response_file=str(receipt), recovered=True)
                 else:

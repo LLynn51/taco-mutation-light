@@ -39,6 +39,10 @@ def configuration(path):
         raise ValueError("max_inflight must cover collect_workers")
     if cfg["trace"]["max_event_bytes"] < cfg["trace"]["max_snapshot_bytes"] + 8192:
         raise ValueError("max_event_bytes too small for snapshot envelope")
+    if cfg["trace"]["checkpoint_chunk_bytes"] + 4096 > cfg["trace"]["max_event_bytes"]:
+        raise ValueError("Checkpoint chunks must fit the transport frame limit")
+    if cfg["analysis"]["max_evidence_events"] < 2:
+        raise ValueError("Evidence budget must retain both sides")
     return cfg
 
 

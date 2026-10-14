@@ -13,6 +13,7 @@ import uuid
 from runner import DockerRunner, IsolationError, ENV
 from .inputs import ROOT
 from .storage import canonical, digest, file_digest, write_json
+from .checkpoint_io import CheckpointSink
 
 
 class DockerUnavailable(RuntimeError):
@@ -41,6 +42,8 @@ class TraceRunner(DockerRunner):
                       "values.py": (ROOT / "tracer/values.py").read_bytes(),
                       "driver.py": (ROOT / "tracer/collect.py").read_bytes(),
                       "probe.py": (ROOT / "adapters/probe.py").read_bytes()}
+        for name in ("policy", "sequences", "checkpoints"):
+            self.files["trace_" + name + ".py"] = (ROOT / "tracer/adapters" / (name + ".py")).read_bytes()
         self.identity = None
 
     def docker(self, args, timeout=30):
@@ -136,6 +139,7 @@ class TraceRunner(DockerRunner):
                 path = Path(cached["trace_file"])
                 if not path.is_file() or file_digest(path) != cached["trace_sha256"]:
                     raise ValueError("Cached trace missing or changed")
+                self.verify_checkpoints(cached)
                 return cached
             directory = self.store.directory / "traces" / key
             directory.mkdir(parents=True, exist_ok=True)
@@ -145,6 +149,7 @@ class TraceRunner(DockerRunner):
                 record = json.loads(metadata.read_text())
                 if record.get("trace_key") != key or file_digest(record["trace_file"]) != record["trace_sha256"]:
                     raise ValueError("Recovered trace binding mismatch")
+                self.verify_checkpoints(record)
                 self.store.put("trace", key, record)
                 return record
             baseline_file = directory / "baseline.json"
@@ -167,6 +172,12 @@ class TraceRunner(DockerRunner):
             write_json(directory / "metadata.json", record)
             self.store.put("trace", key, record)
             return record
+
+    @staticmethod
+    def verify_checkpoints(record):
+        for cp in record.get("traced", {}).get("checkpoints", {}).values():
+            if file_digest(cp["file"]) != cp["sha256"]:
+                raise ValueError("Cached checkpoint missing or changed")
 
     def launch(self, source, payload, trace_path, probe=False):
         cfg = self.config
@@ -228,6 +239,7 @@ class TraceRunner(DockerRunner):
 
                     def read_output():
                         handle = None
+                        sink = CheckpointSink(str(trace_path) + ".checkpoints", self.cfg["trace"]) if trace_path else None
                         try:
                             if trace_path:
                                 handle = gzip.open(trace_path, "wb", compresslevel=3)
@@ -238,7 +250,7 @@ class TraceRunner(DockerRunner):
                                 if len(line) > line_limit:
                                     raise ValueError("transport_line_limit")
                                 counts["wire_bytes"] += len(line)
-                                if counts["wire_bytes"] > self.cfg["trace"]["max_trace_bytes"] + cfg["output_bytes"] * 6 + 65536:
+                                if counts["wire_bytes"] > self.cfg["trace"]["max_trace_bytes"] + self.cfg["trace"]["checkpoint_total_bytes"] + cfg["output_bytes"] * 6 + 65536:
                                     raise ValueError("transport_byte_limit")
                                 row = json.loads(line)
                                 if type(row) is not dict:
@@ -252,6 +264,8 @@ class TraceRunner(DockerRunner):
                                     target_started_at[0] = time.time()
                                     ready.set()
                                 elif row.get("kind") == "event":
+                                    if len(line) > self.cfg["trace"]["max_event_bytes"]:
+                                        raise ValueError("event_frame_limit")
                                     if result or not ready.is_set() or not payload["traced"] or row.get("event_id") != counts["events"]:
                                         raise ValueError("invalid_event_sequence")
                                     counts["events"] += 1
@@ -260,6 +274,12 @@ class TraceRunner(DockerRunner):
                                         raise ValueError("trace_limit")
                                     if handle:
                                         handle.write(line)
+                                elif row.get("kind") in ("checkpoint_start", "checkpoint_chunk", "checkpoint_end"):
+                                    if len(line) > self.cfg["trace"]["max_event_bytes"]:
+                                        raise ValueError("checkpoint_frame_limit")
+                                    if result or not ready.is_set() or sink is None or not payload["traced"]:
+                                        raise ValueError("unexpected_checkpoint")
+                                    sink.accept(row)
                                 elif row.get("kind") == "result":
                                     if result or not ready.is_set() or row.get("event_count") != counts["events"]:
                                         raise ValueError("invalid_footer")
@@ -271,6 +291,13 @@ class TraceRunner(DockerRunner):
                             errors.append(type(exc).__name__)
                             failed.set()
                         finally:
+                            if sink:
+                                try:
+                                    sink.close()
+                                    result["checkpoints"] = sink.records
+                                except OSError as exc:
+                                    errors.append(type(exc).__name__)
+                                    failed.set()
                             if handle:
                                 try:
                                     handle.close()
@@ -324,10 +351,13 @@ class TraceRunner(DockerRunner):
                 facts = json.loads(self.docker(["inspect", name]))[0]["State"]
                 if facts.get("OOMKilled"):
                     stop_reason = "oom"
-                if stop_reason or errors or not result or process.returncode:
+                if stop_reason or errors or "observation" not in result or process.returncode:
+                    checkpoints = result.get("checkpoints", {})
                     result = {"observation": {"status": stop_reason or "transport_error", "output": None},
                               "events_complete": False, "stop_reason": stop_reason or "missing_or_invalid_footer",
-                              "event_count": counts["events"]}
+                              "event_count": counts["events"], "event_bytes": counts["event_bytes"],
+                              "checkpoint_bytes": sum(c["bytes"] for c in checkpoints.values()),
+                              "checkpoints": checkpoints}
                 result.update(container=name, elapsed_seconds=time.monotonic() - started,
                               started_at=started_at, target_started_at=target_started_at[0],
                               target_finished_at=target_finished_at[0],
